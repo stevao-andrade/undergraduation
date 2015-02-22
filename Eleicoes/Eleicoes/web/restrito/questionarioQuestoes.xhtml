@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="QUESTIONÁRIOS" />
+            </div>
+
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="#{usuarioQuestionarioBean.questionario.nomeQuestionario}" style="width: 1000px">
+                    <p:dataGrid value="#{usuarioQuestionarioBean.questionario.questoes}" 
+                                var="questao" 
+                                columns="1"
+                                binding="#{usuarioQuestionarioBean.dataGrid}">
+                        <br/>
+                        <p:column >
+                            <p:panel header="#{questao.enunciadoQuestao}" style="width: 800px;">
+                                <h:selectOneRadio  required="true"
+                                                   requiredMessage="É necessario responder todas as perguntas"
+                                                   layout="pageDirection"
+                                                   binding="#{usuarioQuestionarioBean.radio}"
+                                                   valueChangeListener="#{usuarioQuestionarioBean.execute(evt)}">  
+                                    
+                                    <f:selectItems value="#{questao.alternativas}" var="alternativa" 
+                                                   itemLabel="#{alternativa.enunciadoAlternativa}" 
+                                                   itemValue="#{alternativa.codigo_alternativa}"/>
+                                </h:selectOneRadio>                
+                            </p:panel>
+                        </p:column>
+                    </p:dataGrid>
+                </p:fieldset>
+                <p:messages/>
+                <br/>
+                <p:commandButton value="Votar" ajax="false" action="#{usuarioQuestionarioBean.salvar()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

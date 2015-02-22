@@ -1,0 +1,223 @@
+/* 
+    Document   : estilo
+    Created on : 28/07/2011, 11:06:39
+    Author     : stevao.alves
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.tabelaSemBorda{  
+     border: 0px;   
+} 
+
+#logotipo{
+    background-image: url(../resources/imagens/topo_egresso.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 120px;
+}
+
+#logotipo_info{
+    position: absolute;
+    top: 70px;
+    text-align: left;
+    left: 65px;
+}
+
+#barra_menu{
+    background-image: url(../resources/imagens/barra_menu.gif);
+    height: 22px;
+    background-repeat: repeat-x;
+    background-position: center;
+    font-size: 16px;
+}
+
+#barra_menu .interna{
+    margin: 0 auto;
+    text-align: right;
+    font-weight: bold;
+}
+
+#barra_menu_navegacao{
+    position: absolute;
+    display: inline;
+    left: 70px;
+    top: 130px;
+    font-weight: bold;
+    color: #000000;
+}
+
+#rodape{
+    background-image: url(../resources/imagens/rodape.gif);
+    background-position: bottom;
+    height: 40px;
+    background-repeat: repeat-x;
+}
+
+#corpo{
+    font-size: 12px;
+}
+
+#tela_login{
+    margin-left: 470px;
+}
+
+#registrar{
+    margin-left: 75px;
+    margin-top: 10px;
+}
+
+#formUsuario input{
+    width: 250px;
+}
+
+#fieldSetCadUsuario{
+    width: 1000px;
+}
+
+#principal_menu {
+    display:inline; /*Bug da margem dupla para floats no IE*/ 
+    float:left;
+    width:22%;
+}
+
+#selecao_principal{
+    width: 250px;
+    float: left;
+}
+
+#selecao_principal2{
+    width: 250px;
+    float: left;
+    margin-left: 80px;
+}
+
+#selecao_principal3{
+    width: 250px;
+    float: left;
+}
+
+#selecao_principal_adm{
+    width: 250px;
+    float: left;
+}
+
+#selecao_principal_adm2{
+    width: 250px;
+    float: left;
+    margin-left: 200px;
+    margin-top: 50px;
+}
+
+#selecao_principal_adm3{
+    width: 250px;
+    float: left;    
+    margin-top: 50px;
+}
+
+#selecao_principal4{
+    width: 250px;
+    float: left;
+}
+
+
+#fomacao textarea{
+    width: 500px;
+    height: 70px;
+}
+
+#experiencia input{
+    width: 250px;
+}
+
+#form_contato input{
+    width: 250px;
+}
+
+#form_contato textarea{
+    width: 500px;
+    height: 250px;
+}
+
+#instituicaoEnsinoForm input{
+    width: 250px;
+}
+
+#panel1 {
+    width: 235px;
+    text-align:center;
+}
+
+#panel2 {
+    width: 235px;
+    text-align:center; 
+}
+
+#panel3 {
+    width: 235px;
+    text-align:center;
+    
+}
+
+#panel4 {
+    width: 235px;
+    text-align:center; 
+}
+
+#panel5 {
+    width: 235px;
+    text-align:center; 
+}
+
+#panel6 {
+    width: 235px;
+    text-align:center;
+}
+
+#panel7 {
+    width: 235px;
+    text-align:center; 
+}
+
+#panel8 {
+    width: 235px;
+    text-align:center; 
+}
+
+#panel1_adm {
+    width: 230px;
+    text-align: center;
+}
+
+#panel2_adm {
+    width: 230px;
+    text-align: center;
+}
+
+#panel3_adm {
+    width: 230px;
+    text-align: center;
+}
+
+#panel4_adm{
+    width: 230px;
+    text-align: center;
+}
+
+#formAdmAtualizar {
+    width: 400px;
+}
+
+#formBtnFinalizar{
+    margin-left: 95px;
+    margin-top: -33px;
+}
+
+#form_relatorio_panel selectOneMenu {
+    width: 500px;
+}

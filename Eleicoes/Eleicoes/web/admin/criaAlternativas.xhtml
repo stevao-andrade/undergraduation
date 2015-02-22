@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/internaAdm2.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <h:outputText value="Pagina Principal  " />
+                <h:outputText value="> " />
+                <h:outputText value="Criar Questionários " />
+                <h:outputText value="> " />
+                <h:outputText value="Criar Questões" />
+                <h:outputText value=" > " />
+                <h:outputText value="Criar Alternativas" />
+            </div>
+
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form id="criaAlternativas" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="Adcionar Alternativas" style="width: 900px;">
+                    <h:panelGrid cellpadding="5"  columns="2">
+
+                        <h:outputText value="Selecione a questão: "/>
+                        <p:selectOneMenu  
+                            style="width: 500px;"
+                            required="true"
+                            requiredMessage="Campo 'Questão' Obrigatório"
+                            value="#{alternativaBean.questaoSelecionada}">
+                            <f:ajax execute="@this" render=":listagemAlternativa"/>
+                            <f:selectItems value="#{alternativaBean.listaEnunciadoQuestoes}"/>
+                        </p:selectOneMenu>
+                        
+                        <h:inputHidden/><h:inputHidden/>
+                        
+                        <h:outputText value="Enunciado da alternativa: "/>
+                        <p:inputText value="#{alternativaBean.alternativa.enunciadoAlternativa}" 
+                                     style="width: 500px;"
+                                     required="true"
+                                     requiredMessage="Campo 'Enunciado' Obrigatório"/>  
+                        <h:inputHidden/><h:inputHidden/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <br/>
+                
+                <p:commandButton value="Adcionar" 
+                                 action="#{alternativaBean.salvarAlternativa()}"
+                                 ajax="false">
+                </p:commandButton>
+            </h:form>
+            
+            <h:form id="formBtnFinalizar" acceptcharset="iso-8859-1,utf-8">
+                <p:commandButton value="Finalizar"
+                                 ajax="false"
+                                 action="#{logoutBean.encerraQuestionario()}"/>
+            </h:form>
+
+            <br/><br/>
+            <p:messages/>
+            <br/><br/>
+            
+            <h:form id="listagemAlternativa" acceptcharset="iso-8859-1,utf-8">  
+                <p:dataTable var="alternativas"  
+                             value="#{alternativaBean.listaAlternativas}"
+                             id="tabelaAlternativas" 
+                             style="width: 950px; margin-left: 100px;"
+                             rowIndexVar="linha">
+
+                    <p:column headerText="Alternativa" style="width: 40px; text-align: center;">
+                        <h:outputText value="#{linha+1}" />
+                    </p:column>
+
+                    <p:column headerText="Enunciado" style="width: 150px;">
+                        <h:outputText  value="#{alternativas.enunciadoAlternativa}"/>
+                    </p:column>
+
+                    <p:column headerText="Questão" style="width: 150px; ">
+                        <h:outputText value="#{alternativas.questao.enunciadoQuestao}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 50px"
+                              headerText="Excluir">
+                        <p:commandLink action="#{alternativaBean.excluirAlternativa()}" 
+                                       ajax="false">
+                            <h:graphicImage library="imagens" name="fechar.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener value="#{alternativas}" target="#{alternativaBean.alternativa}" />
+                            <f:ajax execute="@this" render=":tabelaQuestoes"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

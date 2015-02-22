@@ -1,0 +1,79 @@
+/* 
+    Document   : estilo
+    Created on : 16/02/2012, 11:15:57
+    Author     : stevao
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    font-size: small;
+    font-weight: 200;
+    background-color: #DDDDDD;
+}
+
+#topo{
+    margin-top: -10px;
+    height: 40px;
+    background-color: #4B8DF8
+}
+
+#corpo{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#barra{
+    height: 35px;
+    background-color: #F4F4F4
+}
+
+#corpo{
+    font-size: 15px;
+}
+
+#dados{
+    position: fixed;
+}
+
+#mapa{
+    position: relative;
+    margin-top: 30px;
+}
+
+.semBorda{
+    border: 0px;
+}
+
+.fildSetStyle{
+    margin-top: 10px;
+    width: 450px;
+    height: 580px;
+}
+
+#mapa{
+    float: right;
+}
+
+
+.ui-widget {  
+        font-size: 15px !important;  
+}  
+
+.boxStyle{
+    width: 200px;
+}
+
+#outPutGmapInfo{
+    text-align:center;
+    display:block;
+}

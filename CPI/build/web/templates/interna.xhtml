@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <h:head>
+
+        <h:outputScript library="js"  name="primefaces-locale.js"/>
+        <h:outputStylesheet library="css" name="estilo.css"/>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title><ui:insert name="titulo">CRA-PI :: Controle de Processos Internos</ui:insert></title>
+    </h:head>
+    <body>
+
+        <div id="container">
+            <div id="titulo">
+                <ui:insert id="titulo">CRA-PI</ui:insert>
+            </div>
+
+            <div id="logotipo"></div>
+
+            <div id="barra_menu">
+                <div id="barra_menu_info">
+                    <ui:insert name="navegacao" />
+                    <ul class="interna">
+                        <h:form>
+                            <h:outputText rendered="#{usuarioBean.logado != false}" value="Logado como: #{usuarioBean.usuario.login} "/>
+                            <h:outputText rendered="#{usuarioBean.logado != false}" value="|"/>
+                            <h:commandLink rendered="#{usuarioBean.logado != false}" action="#{logoutBean.doLogout()}" value="Sair"/>
+                        </h:form>
+                    </ul>
+                </div>
+            </div>
+            <p:spacer height="3%"/>
+
+            <div id="corpo">
+                <ui:insert name="corpo"/>
+            </div>
+            <p:spacer height="2%"/>
+            <div id="rodape"></div>
+        </div>
+    </body>
+</html>

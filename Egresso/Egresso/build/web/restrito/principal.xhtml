@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/internaPrincipal.xhtml">
+
+        <ui:define name="corpo">
+            <br/>
+            <h:form prependId="false" id="selecao_principal" style=" width: 300px;" acceptcharset="iso-8859-1,utf-8">
+                <p:panel header="Egresso" >
+                    <br/>
+                    <h:outputText value="Nome:  #{usuarioBean.usuario.nome}"/> <br/><br/>
+                    <h:outputText value="Email: #{usuarioBean.usuario.email}"/>  <br/><br/>
+                    <h:outputText value="Matricula: #{usuarioBean.usuario.matricula}"/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                </p:panel>
+            </h:form>
+
+            <h:form prependId="false" id="selecao_principal2" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:panel id="panel1" header="Meus dados">
+                    <p:commandLink action="/restrito/atualizar" ajax="false">
+                        <br/>
+                        <br/>
+                        <h:graphicImage library="imagens" name="detalhes.png" style="text-align: center" styleClass="tabelaSemBorda"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </p:commandLink> 
+                </p:panel>
+                <p:draggable for="panel1" revert="true" />  
+                <br/><br/>
+                <p:panel id="panel2" header="Experiência Profissional" >
+                    <p:commandLink action="/restrito/experienciaProfissional" ajax="false">
+                        <br/>
+                        <br/>
+                        <h:graphicImage library="imagens" name="detalhes.png" style="text-align: center" styleClass="tabelaSemBorda"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </p:commandLink>
+                </p:panel>
+                <p:draggable for="panel2" revert="true" />  
+            </h:form>
+            <br/>
+            <h:form prependId="false" id="selecao_principal3" acceptcharset="iso-8859-1,utf-8">
+                <p:panel id="panel4" header="Formação Profissional" >
+                    <p:commandLink action="/restrito/formacaoProfissional" ajax="false">
+                        <br/>
+                        <br/>
+                        <h:graphicImage library="imagens" name="detalhes.png" style="text-align: center" styleClass="tabelaSemBorda"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </p:commandLink>
+                </p:panel>
+                <p:draggable for="panel4" revert="true" />  
+                <br/><br/>
+                <p:panel id="panel5" header="Questionários" >
+                    <p:commandLink action="/restrito/questionarios" ajax="false">
+                        <br/>
+                        <br/>
+                        <h:graphicImage library="imagens" name="detalhes.png" style="text-align: center" styleClass="tabelaSemBorda"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </p:commandLink>
+                </p:panel>
+                <p:draggable for="panel5" revert="true" />  
+            </h:form>    
+
+            <h:form prependId="false" id="selecao_principal4" acceptcharset="iso-8859-1,utf-8">    
+                <p:panel id="panel7" header="Instituição de Formação" >
+                    <p:commandLink action="/restrito/instituicaoEnsino" ajax="false">
+                        <br/>
+                        <br/>
+                        <h:graphicImage library="imagens" name="detalhes.png" style="text-align: center" styleClass="tabelaSemBorda"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </p:commandLink>
+                </p:panel>
+                <p:draggable for="panel7" revert="true" />  
+                <br/><br/>
+                <p:panel id="panel8" header="Contato" >
+                    <p:commandLink action="/restrito/contato" ajax="false">
+                        <br/>
+                        <br/>
+                        <h:graphicImage library="imagens" name="detalhes.png" style="text-align: center" styleClass="tabelaSemBorda"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </p:commandLink>
+                </p:panel>
+                <p:draggable for="panel8" revert="true" />      
+            </h:form>
+            
+            <div id="rodape" style="height: 500px;"/>
+            
+        </ui:define>
+    </ui:composition>
+</html>

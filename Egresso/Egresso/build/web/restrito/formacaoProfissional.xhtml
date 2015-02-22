@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="FORMAÇÃO PROFISSIONAL" />
+            </div>
+
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form id="fomacao" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="Formação Profissional" style="width: 900px;">
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        <h:outputText value="Descrição: "/> 
+                        <p:inputTextarea id="descricaoFormacao"
+                                         value="#{formacaoProfissionalBean.formacaoProfissional.descricao}"
+                                         required="true"
+                                         requiredMessage="Campo 'Descrição' Obrigatório"/>
+
+                        <h:outputText value="Início "/> 
+                        <p:calendar navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    id="dataInicioFormcao"
+                                    value="#{formacaoProfissionalBean.formacaoProfissional.dataInicio}"
+
+                                    required="true"
+                                    requiredMessage="Campo 'Início' Obrigatório"/> 
+
+                        <h:outputText value="Fim: "/> 
+                        <p:calendar navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    id="dataFimFormacao"
+                                    value="#{formacaoProfissionalBean.formacaoProfissional.dataFim}"
+                                    required="true"
+                                    requiredMessage="Campo 'Fim' Obrigatório"/>
+
+                        <h:outputText value="Instituição: "/> 
+                        <p:inputText  id="instituicaoFormacao"
+                                      value="#{formacaoProfissionalBean.formacaoProfissional.instituicaoFormacao}"
+                                      required="true"
+                                      requiredMessage="Campo 'Instituição' Obrigatório"/>
+
+                        <h:outputText value="Titulo: "/> 
+                        <p:inputText  id="titulacaoFormacao"
+                                      value="#{formacaoProfissionalBean.formacaoProfissional.titulacao}"
+                                      required="true"
+                                      requiredMessage="Campo 'Titulação' Obrigatório"/>
+                    </h:panelGrid>
+                </p:fieldset>
+                <br/>
+                <p:commandButton value="Incluir Formação" action="#{formacaoProfissionalBean.salvar()}" ajax="false"/>
+            </h:form>
+
+            <br/>
+
+            <p:messages/>
+
+            <br/>
+
+            <h:form id="listagem" acceptcharset="iso-8859-1,utf-8">
+                <p:dataTable var="formacao" value="#{formacaoProfissionalBean.lista}"
+                             paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             selectionMode="single"
+                             rows="10"
+                             style="width: 900px; margin-left: 120px;"
+                             rowKey="#{formacao.codigo_formacao}">
+                    <f:facet name="header">
+                        <h:outputText value="Formação Profissional"/>
+                    </f:facet>
+                    <p:column headerText="Descrição" >
+                        <h:outputText value="#{formacao.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Inicio" style="text-align: center; width: 100px;">
+                        <h:outputText value="#{formacao.dataInicio}">
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Fim" style="text-align: center; width: 100px;">
+                        <h:outputText value="#{formacao.dataFim}">
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Instituição" style="text-align: center; width: 150px;">
+                        <h:outputText value="#{formacao.instituicaoFormacao}"/>
+                    </p:column>
+
+                    <p:column headerText="Titulo" style="text-align: center; width: 170px;">
+                        <h:outputText value="#{formacao.titulacao}"/>
+                    </p:column>
+
+                    <p:column headerText="Excluir" style="text-align: center; width: 60px">
+                        <p:commandLink action="#{formacaoProfissionalBean.excluir()}" 
+                                       ajax="false">
+                            <h:graphicImage library="imagens" name="fechar.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener value="#{formacao}" target="#{formacaoProfissionalBean.formacaoProfissional}" />
+                            <f:ajax execute="@this" render=":listagem"/>
+                        </p:commandLink>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{formacaoProfissionalBean.lista.size()} Resultados"  />
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <br/>
+        </ui:define>
+    </ui:composition>
+
+</html>

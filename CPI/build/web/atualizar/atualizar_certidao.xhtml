@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:xc="http://java.sun.com/jsf/composite/xpert/components"
+      xmlns:x="http://xpert.com/faces">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Atualizar dados de Certidão de Regularidade" />
+            </div>
+
+        </ui:define>
+
+
+        <ui:define name="corpo">
+            <p:fieldset legend="Atualizar Certidão de Regularidade" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                <h:form acceptcharset="UTF-8" id="formCertidao">
+                    <h:panelGrid columns="4" cellspacing="10">       
+
+                        <h:outputText value="Número da Certidão:"/>
+                        <p:inputText required="true"
+                                     requiredMessage="Numero da certidão obrigatório."
+                                     value="#{atualizacaoBean.certidao.numero}"/>
+
+                        <h:outputText value="Ano de referência: "/>
+                        <h:selectOneMenu style="width: 100px;"
+                                         value="#{atualizacaoBean.certidao.ano}"
+                                         required="true"
+                                         requiredMessage="Ano de referência obrigatório.">
+                            <f:selectItem itemLabel="-- Ano --"
+                                          itemValue="#{0}"/>
+                            <f:selectItems value="#{certidaoBean.listaAno}"
+                                           var="ano"
+                                           itemLabel="#{ano.ano}"
+                                           itemValue="#{ano.ano}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputText value="Requerente: "/>
+                        <p:inputText  required="true"
+                                      requiredMessage="Requerente obrigatório."
+                                      value="#{atualizacaoBean.certidao.requerente}"/>
+
+                        <h:outputText value="Nº Registro: "/>
+                        <p:inputText    value="#{atualizacaoBean.certidao.registro}"
+                                        style="width: 90px;"/>
+
+                        <h:outputText value="Tipo de inscrição:"/>
+                        <h:selectOneMenu    required="true"
+                                            id="selectTipoCertidao"
+                                            requiredMessage="Tipo de inscrição obrigatório."
+                                            style="width: 260px;"
+                                            value="#{atualizacaoBean.certidao.tipoInscricao}">
+                            <f:selectItem itemLabel="Pessoa Física"
+                                          itemValue="Pessoa Física"/>
+                            <f:selectItem itemLabel="Pessoa Jurídica"
+                                          itemValue="Pessoa Jurídica"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Data da solicitação: "/>
+                        <p:inputText  value="#{atualizacaoBean.certidao.dataSolicitacao}"/>
+
+                        <h:outputText value="Valor: "/>
+                        <xc:inputNumber  value="#{atualizacaoBean.certidao.valor}"/>
+                        <h:outputText value="Data do pagamento: "/>
+                        <p:inputText  value="#{atualizacaoBean.certidao.dataPagamento}"/>
+
+                        <h:outputText value="Prazo de validade: "/>
+                        <p:inputText  value="#{atualizacaoBean.certidao.prazoValidade}"/>
+
+                        <h:outputText value="Numero do selo: "/>
+                        <p:inputText value="#{atualizacaoBean.certidao.selo}"
+                                     style="width: 90px;"/>
+
+                        <br/><br/>
+                        <p:commandButton value="Atualizar Informações"
+                                         ajax="false"
+                                         action="#{atualizacaoBean.atualizarCertidao()}"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:fieldset>
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+
+

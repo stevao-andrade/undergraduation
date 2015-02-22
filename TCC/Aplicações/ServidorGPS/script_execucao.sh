@@ -1,0 +1,1 @@
+nohup java -jar /home/stevao/Projetos/ServidorGPS.jar </dev/null >>ArquivoLog 2>>ArquivoErro&

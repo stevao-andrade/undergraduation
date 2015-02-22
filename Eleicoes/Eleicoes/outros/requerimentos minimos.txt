@@ -1,0 +1,4 @@
+﻿Navegador: Google Chrome
+Processador: Pentium 4 3.0 ghz
+Memoria ram: 1gb.
+Conexão com internet.

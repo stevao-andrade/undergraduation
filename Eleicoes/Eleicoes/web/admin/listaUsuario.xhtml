@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/internaAdm2.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="administracao.xhtml">Painel Administrativo  </a>
+                <h:outputText value="> " />
+                <h:outputText value="LISTAGEM DE USUÁRIO" />
+            </div>
+        </ui:define>
+
+        <ui:define name="corpo">
+            <h:form id="listagem_usuarios" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:dataTable id="table_usuarios" var="usuarios" value="#{usuarioBean.lista}"
+                             selectionMode="single"
+                             style="width: 1200px;"
+                             rowKey="#{usuarios.nome}">
+                    <f:facet name="header">
+                        <h:outputText value="Lista de Usuários Cadastrados no Sistema"  />
+                    </f:facet>
+
+                    <p:column headerText="Codigo" style="text-align: center; width:60px;">
+                        <h:outputText value="#{usuarios.codigo_usuario}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome" style="width: 250px;">
+                        <h:outputText value="#{usuarios.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Email" style=" width: 250px;">
+                        <h:outputText value="#{usuarios.email}"/>
+                    </p:column>
+
+                    <p:column headerText="Matricula" style="text-align: center; width: 100px;">
+                        <h:outputText value="#{usuarios.matricula}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 50px">
+                        <p:commandLink action="#{usuarioBean.excluir()}" 
+                                       ajax="false">
+                            <h:graphicImage library="imagens" name="fechar.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener value="#{usuarios}" target="#{usuarioBean.usuario}" />
+                            <f:ajax execute="@this" render=":listagem_exp"/>
+                        </p:commandLink>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{usuarioBean.lista.size()} Usuários Registrados"  />
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <p:spacer height="5%"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

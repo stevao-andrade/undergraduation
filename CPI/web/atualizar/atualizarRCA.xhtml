@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:xc="http://java.sun.com/jsf/composite/xpert/components"
+      xmlns:x="http://xpert.com/faces">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Atualização de Dados da RCA" />
+            </div>
+
+        </ui:define>
+
+
+        <ui:define name="corpo">
+            <div>
+                <p:fieldset legend="RCA" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                    <h:form acceptcharset="UTF-8" id="formCertidao">
+                        <h:panelGrid columns="4" cellspacing="10">       
+
+                            <h:outputText value="Número da RCA:"/>
+                            <p:inputText required="true"
+                                         requiredMessage="Numero da certidão obrigatório."
+                                         value="#{atualizacaoBean.rca.numero}"/>
+
+                            <h:outputText value="Nº Registro da empresa: " style="margin-left: -350px;" />
+                            <p:inputText  value="#{atualizacaoBean.rca.numeroEmpresa}" style="margin-left: -270px; width: 190px;"
+                                          required="true"
+                                          requiredMessage="Numero de registro obrigatório."/>
+
+                            <h:outputText value="Data do pagamento: " />
+                            <p:calendar   pattern="dd/MM/yyyy"
+                                          value="#{atualizacaoBean.rca.dataPagamento}"
+                                          required="true"
+                                          requiredMessage="Data do pagamento obrigatório.">
+                            </p:calendar>
+
+
+                            <h:outputText value="Valor pago: " style="margin-left: -350px;"/>
+                            <xc:inputNumber  value="#{atualizacaoBean.rca.valor}" style="margin-left: -270px; width: 190px;"/>
+
+
+                            <h:outputText value="Objeto da RCA: "/>
+                            <p:inputTextarea value="#{atualizacaoBean.rca.objeto}"
+                                             style="width: 600px;
+                                             height:100px;"
+                                             required="true"
+                                             requiredMessage="Objeto obrigatório."/>
+                            <h:inputHidden />
+
+                            <br/><br/>
+
+                            <p:commandButton value="Atualizar Informações"
+                                             ajax="false"
+                                             action="#{atualizacaoBean.atualizarRCA()}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:fieldset>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+</html>

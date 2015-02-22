@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Visualizador - GPS TK102</title>
+        <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+        <h:outputStylesheet library="css" name="estilo.css"/>
+
+    </h:head>
+    <h:body>
+        <div id="conteudo">
+            <div id="topo"/>
+            <div id="corpo">
+                <h:form>
+                    <div id="dados">
+                        <p:fieldset id="gpsFild" legend="Dados" styleClass="ui-widget fildSetStyle">
+                            <h:panelGrid id="panelGrid" columns="2" >
+                                <h:outputText  value="Selecione um GPS: "/>
+                                <h:selectOneMenu id="gpsSeletor"
+                                                 binding="#{gpsBean.selectOnMenu}"
+                                                 styleClass="boxStyle"
+                                                 valueChangeListener="#{gpsBean.pegarImei(v)}"
+                                                 required="true"
+                                                 requiredMessage="Selecionar GPS">
+                                    <f:selectItem itemLabel="-- Selecione --"
+                                                  itemValue="#{0}"/>
+                                    <f:selectItems value="#{gpsBean.listaGpsDisponivel}" 
+                                                   var ="sinal"
+                                                   itemLabel="#{sinal.label}"
+                                                   itemValue="#{sinal.imei}"
+                                                   />
+                                    <p:ajax update="gmap status" listener="#{gpsBean.exibirPosicaoAtual()}"/>
+                                </h:selectOneMenu>
+
+                                <br/>
+                                <p:spacer height="10"/>
+
+                                <h:outputText value="Status do GPS: "/>
+                                <h:graphicImage id="status"
+                                                library="imagens" 
+                                                title="#{gpsBean.titulo}"
+                                                name="smile_#{gpsBean.status}.png" 
+                                                styleClass="semBorda"/>
+
+                                <br/>
+                                <p:spacer height="10"/>
+
+                                <h:outputText value="Exibir rota percorrida em: "/>
+
+                                <p:calendar id="data" 
+                                            value="#{gpsBean.dataCalendario}"
+                                            styleClass="boxStyle"
+                                            pattern="yyyy-mm-dd"/>
+
+                                <h:inputHidden/>
+                                <h:inputHidden/>
+                                <h:inputHidden/>
+                                <p:commandButton value="Mostrar Rota"
+                                                 styleClass="ui-widget"
+                                                 update="mensagem dialog"
+                                                 action="#{gpsBean.exibirItinerario()}"/>
+
+
+                                <p:dialog id="dialog"
+                                          header="Clique no marcador para maiores informações" 
+                                          widgetVar="dlg"
+                                          resizable="false"
+                                          dynamic="true"
+                                          width="820"
+                                          height="600"
+                                          modal="true"
+                                          draggable="false">
+
+                                    <p:gmap id="gmap2"
+                                            model="#{gpsBean.mapaDialog}"
+                                            center="#{gpsBean.centroMapa2}"
+                                            widgetVar="mapaDialog"
+                                            zoom="16" 
+                                            type="ROADMAP"
+                                            streetView="true"
+                                            style="width:800px;height:600px">
+                                        
+                                        <p:ajax event="overlaySelect" listener="#{gpsBean.onMarkerSelect}" />
+
+                                        <p:gmapInfoWindow>
+
+                                            <h:form>
+                                                <p:outputPanel id="outPutGmapInfo">
+
+                                                    <h:outputText value="Posição: #{gpsBean.informaPosicao()}"/>
+                                                    <br/>
+                                                    <h:outputText value="Horario: #{gpsBean.informarHorario()}"/>
+                                                    <br/>
+                                                    <h:outputText value="Latitude: #{gpsBean.informarLatitude()} "/>
+                                                    <br/>
+                                                    <h:outputText value="Longitude: #{gpsBean.informarLongitude()} "/>
+                                                    <br/>
+                                                    <h:outputText value="Velocidade: #{gpsBean.informarVelocidade()} "/>
+                                                    <br/>
+                                                    <h:outputText value="Distancia percorrida: #{gpsBean.distanciaPercorrida()} "/>
+
+                                                </p:outputPanel> 
+                                            </h:form>
+                                        </p:gmapInfoWindow>
+
+                                    </p:gmap>
+
+                                </p:dialog>
+
+                            </h:panelGrid>
+
+
+                            <p:messages id="mensagem"/>
+
+                        </p:fieldset>
+                    </div>
+
+                    <p:poll widgetVar="poll"
+                            interval="15"
+                            listener="#{gpsBean.atualizarPosicaoAtual()}" 
+                            update="status gmap mensagem"/> 
+
+                    <div id="mapa">
+                        <p:gmap id="gmap"
+                                widgetVar="map"
+                                center="#{gpsBean.centro}"
+                                model="#{gpsBean.mapa}"
+                                zoom="16" 
+                                type="hybrid"
+                                streetView="true"
+                                style="width:700px;height:580px"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+

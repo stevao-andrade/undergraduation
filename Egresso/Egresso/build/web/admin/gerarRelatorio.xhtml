@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/internaAdm2.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="administracao.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="RELATORIOS" />
+            </div>
+        </ui:define>
+        <ui:define name="corpo">
+
+            <h:form id="form_relatorio" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="Relatorio de questionários" style="width: 700px;">
+                    <h:panelGrid id="form_relatorio_panel" columns="2" cellpadding="7">
+                        <h:outputText value="Questionário:"/>
+                        <p:selectOneMenu style="width: 500px;"
+                                         binding="#{relatorioBean.menuQuestionarios}"
+                                         valueChangeListener="#{relatorioBean.execute(evt)}"
+                                         required="true"
+                                         requiredMessage="Escolha um Questionário válido">
+                            <f:selectItem itemLabel="Selecione um questionario"
+                                          itemValue=""/>
+                            <f:selectItems value="#{relatorioBean.listaDeQuestionario}"/>
+                            <p:ajax update="select"
+                                    listener="#{relatorioBean.atualizandoSelect()}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Questão:"/>
+                        <p:selectOneMenu id="select" style="width: 500px;"
+                                         binding="#{relatorioBean.menuQuestao}"
+                                         required="true"
+                                         requiredMessage="Escolha uma Questão valida"
+                                         valueChangeListener="#{relatorioBean.executeQuestao(evt2)}">
+                            <f:selectItem itemLabel="Selecione uma questão" itemValue=""/>
+                            <f:selectItems value="#{relatorioBean.questoes}" />
+                        </p:selectOneMenu>
+
+                        <p:commandButton value="Gerar Gráfico"
+                                         id="btn_relatorio"
+                                         action="graficoPizza.xhtml"
+                                         ajax="false"/>
+                    </h:panelGrid>
+                </p:fieldset>
+            </h:form> 
+            <br/>
+            <br/>
+
+            <h:form acceptcharset="iso-8859-1,utf-8">
+                <p:fieldset legend="Relatorio de Emails" style="width: 700px;">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Email: "/>
+                        <p:selectOneMenu value="#{relatorioBean.curso}"
+                                         style="width: 500px;">
+                            <f:selectItem itemLabel="Todos"
+                                          itemValue=""/>
+                            <f:selectItems value="#{instituicaoEnsinoBean.listaDeCursos}"/>
+                        </p:selectOneMenu>
+                        <h:inputHidden/>
+                        <br/>
+                        <p:commandButton value="Gerar" ajax="false">
+                            <p:fileDownload value="#{relatorioBean.gerarEmails()}"/>
+                        </p:commandButton>
+                    </h:panelGrid>
+                </p:fieldset>    
+            </h:form>
+
+            <p:messages/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

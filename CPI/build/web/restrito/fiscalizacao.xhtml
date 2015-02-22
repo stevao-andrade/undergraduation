@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Fiscalização" />
+            </div>
+        </ui:define>
+
+        <ui:define name="corpo">
+            <div>
+                <p:fieldset legend="Fiscalização" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                    <h:form acceptcharset="UTF-8" id="formCertidao">
+                        <h:panelGrid columns="4" cellspacing="10">       
+
+
+
+                            <h:outputText value="Tipo de Pessoa:"/>
+                            <p:selectOneRadio required="true"
+                                              requiredMessage="Tipo de pessoa obrigatório."
+                                              id="Pessoa"
+                                              value="#{fiscalizacaoBean.fiscalizacao.tipoFiscalizado}">
+                                <f:selectItem itemLabel="Pessoa Física"
+                                              itemValue="Pessoa Física"/>
+                                <f:selectItem itemLabel="Pessoa Jurídica"
+                                              itemValue="Pessoa Jurídica"/>
+                            </p:selectOneRadio>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputLabel value="Nome:" />  
+                            <p:inputText value="#{fiscalizacaoBean.fiscalizacao.fiscalizado}"
+                                         id="Nome"
+                                         required="true"
+                                         requiredMessage="Nome obrigatório."
+                                         style="width: 240px;"/>
+
+                            <h:outputLabel value="Nº Processo: " />  
+                            <p:inputText required="true"
+                                         requiredMessage="Numero do processo obrigatório."
+                                         id="Numero_processo"
+                                         value="#{fiscalizacaoBean.fiscalizacao.processo}"
+                                         style="width: 250px;"/>
+
+                            <h:outputLabel value="Ano de referencia: "/>
+                            <h:selectOneMenu value="#{fiscalizacaoBean.fiscalizacao.anoReferencia}"
+                                             style="width: 250px;">
+                                <f:selectItem itemLabel="2009"
+                                              itemValue="2009"/>
+                                <f:selectItem itemLabel="2010"
+                                              itemValue="2010"/>
+                                <f:selectItem itemLabel="2011"
+                                              itemValue="2011"/>
+                                <f:selectItem itemLabel="2012"
+                                              itemValue="2012"/>
+                                <f:selectItem itemLabel="2013"
+                                              itemValue="2013"/>
+                                <f:selectItem itemLabel="2014"
+                                              itemValue="2014"/>
+                                <f:selectItem itemLabel="2015"
+                                              itemValue="2015"/>
+                                <f:selectItem itemLabel="2016"
+                                              itemValue="2016"/>
+                                <f:selectItem itemLabel="2017"
+                                              itemValue="2017"/>
+                                <f:selectItem itemLabel="2018"
+                                              itemValue="2018"/>
+                            </h:selectOneMenu>
+
+                            <h:outputLabel   value="Tipo de processo:"/>  
+                            <h:selectOneMenu style="width: 260px;"
+                                             required="true"
+                                             requiredMessage="Tipo de processo obrigatório."
+                                             id="Processo"
+                                             value="#{fiscalizacaoBean.fiscalizacao.tipoProcesso}">
+                                <f:selectItem itemLabel="-- Selecione o tipo de processo --"
+                                              itemValue="0"/>
+                                <f:selectItems value="#{fiscalizacaoBean.listaTipoFiscalizacao}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:outputLabel    value="Status:"/>  
+                            <h:selectOneMenu value="#{fiscalizacaoBean.fiscalizacao.statusProcesso}" 
+                                             required="true"
+                                             id="Status"
+                                             requiredMessage="Status do processo obrigatório."
+                                             style="width: 250px">
+                                <f:selectItem itemLabel="--Selecione o Status--"/>
+                                <f:selectItems value="#{fiscalizacaoBean.listaStatus}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:outputLabel for="from" value="Data da fiscalização:" />  
+                            <p:calendar value="#{fiscalizacaoBean.fiscalizacao.dataFiscalizacao}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                <f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                        </h:panelGrid>
+
+                        <h:outputText value="Observações:"/>
+                        <p:inputTextarea value="#{fiscalizacaoBean.fiscalizacao.observacao}"
+                                         style="width: 633px; 
+                                         height: 180px; 
+                                         margin-left: 40px;"/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <p:commandButton value="Salvar"
+                                         actionListener="#{fiscalizacaoBean.salvarFiscalizacao()}"
+                                         oncomplete="handleRequest(xhr, status, args)"
+                                         update=":growl, dialog"
+                                         ajax="false"/>
+                    </h:form>
+                </p:fieldset>
+            </div>
+
+            <br/>
+            <p:messages/>
+            <br/>
+
+            <div>
+                <h:form id="tabelaProcesso">
+                    <p:dataTable value="#{fiscalizacaoBean.lista}"
+                                 var="f" 
+                                 paginator="true"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 selectionMode="single"
+                                 rows="10"
+                                 rowKey="#{f.processo}"
+                                 style="width: 1200px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                        <f:facet name="header">
+                            <h:outputText value="Dados de Fiscalização"/>
+                        </f:facet>
+
+                        <p:column headerText="Numero do Processo" 
+                                  style="width: 40px; text-align: center;"
+                                  filterBy="#{f.processo}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{f.processo}"/>
+                        </p:column>
+
+                        <p:column headerText="Ano de referencia" 
+                                  style="width: 40px; text-align: center;"
+                                  filterBy="#{f.anoReferencia}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{f.anoReferencia}"/>
+                        </p:column>
+
+                        <p:column headerText="Fiscalizado" style="width: 300px; text-align: center;"
+                                  filterBy="#{f.fiscalizado}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{f.fiscalizado}" />
+                        </p:column>
+
+                        <p:column headerText="Data da Fiscalização" style="width: 50px; text-align: center;">
+                            <h:outputText value="#{f.dataFiscalizacao}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo de Processo" style="width: 50px; text-align: center;">
+                            <h:outputText value="#{f.tipoProcesso}" />
+                        </p:column>
+
+                        <p:column headerText="Status do Processo" style="width: 50px; text-align: center;"
+                                  filterBy="#{f.statusProcesso}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{f.statusProcesso}" />
+                        </p:column>
+
+                        <p:column headerText="Detalhes" style="text-align: center; width: 60px">
+                            <p:commandLink
+                                action="#{fiscalizacaoBean.exibirDialogDetalhes()}"
+                                update="dialog">
+                                <h:graphicImage library="imagens" name="detalhes.png" style="semBorda"/>
+                                <f:setPropertyActionListener target="#{fiscalizacaoBean.fiscalizacaoView}" value="#{f}"/>
+                                <f:ajax execute="@this" render="dialog"/>
+
+                                <p:dialog id="dialog" 
+                                          header="Detalhes da Fiscalização:" 
+                                          widgetVar="detalhes"
+                                          style="text-align: left; width: 1000px; height: 1000px;" >
+                                    <h:panelGrid columns="2">
+                                        <h:outputText value="Numero do Processo: " styleClass="negrito"/>
+                                        <h:outputText value=" #{fiscalizacaoBean.fiscalizacaoView.processo}"/>
+                                        <h:outputText value="Ano de referencia: " styleClass="negrito"/>
+                                        <h:outputText value=" #{fiscalizacaoBean.fiscalizacaoView.anoReferencia}"/>
+                                        <h:outputText value="Fiscalizado:" styleClass="negrito"/>
+                                        <h:outputText value=" #{fiscalizacaoBean.fiscalizacaoView.fiscalizado}"/>      
+                                        <h:outputText value="Data da Fiscalização: " styleClass="negrito"/>
+                                        <h:outputText value=" #{fiscalizacaoBean.fiscalizacaoView.dataFiscalizacao}"/>
+                                        <h:outputText value="Tipo de Fiscalização: " styleClass="negrito"/>
+                                        <h:outputText value=" #{fiscalizacaoBean.fiscalizacaoView.tipoFiscalizado}"/>
+                                        <h:outputText value="Observações: " styleClass="negrito"/>
+                                        <h:outputText value=" #{fiscalizacaoBean.fiscalizacaoView.observacao}"/>
+
+                                    </h:panelGrid>
+                                    <br/>
+                                    <p:commandButton value="Atualizar"
+                                                     action="/atualizar/atualizar_fiscalizacao.xhtml"
+                                                     ajax="false"
+                                                     style="text-align: center;">
+                                        <f:setPropertyActionListener value="#{fiscalizacaoBean.fiscalizacaoView}"
+                                                                     target="#{atualizacaoBean.fiscalizacao}"/>
+                                    </p:commandButton>
+                                    <br/>
+                                </p:dialog>
+                            </p:commandLink>
+                        </p:column>     
+
+                        <p:column headerText="Excluir" style="text-align: center; width: 60px">
+                            <p:commandLink
+                                action="#{fiscalizacaoBean.exibirDialogExcluir()}">
+                                <h:graphicImage library="imagens" name="lixeira.png" style="semBorda"/>
+                                <f:setPropertyActionListener target="#{fiscalizacaoBean.fiscalizacao}" value="#{f}"/>
+                                <f:ajax execute="@this" render=":tabelaProcesso"/>
+                            </p:commandLink>  
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </div>
+
+            <p:confirmDialog id="confirmDialog" 
+                             message="Deseja excluir os dados desta fiscalização?"  
+                             header="Excluir" 
+                             severity="alert" 
+                             widgetVar="confirmacao">
+                <h:form>
+                    <p:commandButton id="confirm" 
+                                     value="Sim" 
+                                     action="#{fiscalizacaoBean.excluir()}"
+                                     oncomplete="confirmacao.hide()"  
+                                     ajax="false">
+                    </p:commandButton>  
+                    <p:commandButton id="decline" value="Não" onclick="confirmacao.hide()" type="button" />   
+                </h:form>
+            </p:confirmDialog>
+
+        </ui:define>
+    </ui:composition>
+</html>

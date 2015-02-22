@@ -1,0 +1,7 @@
+Detalhes do banco Fortes AG
+
+Cliente --> CLI
+Contas a receber --> CRE
+Baixas do contas a receber --> VDR
+Tipos de registro --> Gcl
+Tipo de debitos --> ser

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:xc="http://java.sun.com/jsf/composite/xpert/components"
+      xmlns:x="http://xpert.com/faces">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Atualizar RCA" />
+            </div>
+
+        </ui:define>
+
+
+        <ui:define name="corpo">
+            <div>
+                <p:fieldset legend="Atualizar dados de RCA" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                    <h:form acceptcharset="UTF-8" id="formCertidao">
+                        <h:panelGrid columns="4" cellspacing="10">       
+
+                            <h:outputText value="Número da RCA:"/>
+                            <p:inputText required="true"
+                                         requiredMessage="Numero da certidão obrigatório."
+                                         value="#{rcaBean.rca.numero}"/>
+
+                            <h:outputText value="Nº Registro da empresa: " style="margin-left: -350px;" />
+                            <p:inputText  value="#{rcaBean.rca.numeroEmpresa}" style="margin-left: -270px; width: 190px;"
+                                          required="true"
+                                          requiredMessage="Numero de registro obrigatório."/>
+
+                            <h:outputText value="Data do pagamento: " />
+                            <p:calendar   pattern="dd/MM/yyyy"
+                                          value="#{rcaBean.rca.dataPagamento}"
+                                          required="true"
+                                          requiredMessage="Data do pagamento obrigatório.">
+                            </p:calendar>
+
+
+                            <h:outputText value="Valor pago: " style="margin-left: -350px;"/>
+                            <xc:inputNumber  value="#{rcaBean.rca.valor}" style="margin-left: -270px; width: 190px;"/>
+
+
+                            <h:outputText value="Objeto da RCA: "/>
+                            <p:inputTextarea value="#{rcaBean.rca.objeto}"
+                                             style="width: 600px;
+                                             height:100px;"
+                                             required="true"
+                                             requiredMessage="Objeto obrigatório."/>
+                            <h:inputHidden />
+
+                            <br/><br/>
+
+                            <p:commandButton value="Incluir"
+                                             ajax="false"
+                                             action="#{rcaBean.salvarRCA()}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:fieldset>
+            </div>
+
+
+            <br/>
+            <p:messages/>
+            <br/>
+
+            <div>
+                <h:form id="tabelaProcesso">
+                    <p:dataTable value="#{rcaBean.lista}"
+                                 var="rca" 
+                                 paginator="true"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 selectionMode="single"
+                                 rows="10"
+                                 rowKey="#{rca.numeroEmpresa}"
+                                 style="width: 1200px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                        <f:facet name="header">
+                            <h:outputText value="Registro de Comprovação de Aptidão"/>
+                        </f:facet>
+
+                        <p:column headerText="Numero da RCA" 
+                                  style="width: 70px; text-align: center;"
+                                  filterBy="#{rca.numero}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{rca.numero}"/>
+                        </p:column>                   
+
+                        <p:column headerText="Nº Registro" style="width: 80px; text-align: center;"
+                                  filterBy="#{rca.numeroEmpresa}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{rca.numeroEmpresa}" />
+                        </p:column>
+
+                        <p:column headerText="Data da Solicitação/Pagamento" style="width: 70px; text-align: center;">
+                            <h:outputText value="#{rca.dataPagamento}" />
+                        </p:column>
+
+                        <p:column headerText="Valor" style="width: 50px; text-align: center;">
+                            <h:outputText value="#{rca.valor}" />
+                        </p:column>
+
+                        <p:column headerText="Detalhes" style="text-align: center; width: 60px">
+                            <p:commandLink
+                                action="#{rcaBean.exibirDialogDetalhes()}"
+                                update="dialog">
+                                <h:graphicImage library="imagens" name="detalhes.png" style="semBorda"/>
+                                <f:setPropertyActionListener target="#{rcaBean.rcaView}" value="#{rca}"/>
+                                <f:ajax execute="@this" render="dialog"/>
+
+                                <p:dialog id="dialog" 
+                                          header="Detalhes da Solicitação:" 
+                                          widgetVar="detalhes"
+                                          style="text-align: left; width: 500px;" >
+                                    <h:panelGrid columns="2">
+                                        <h:outputText value="Numero de Registro: " styleClass="negrito"/>
+                                        <h:outputText value=" #{rcaBean.rcaView.numeroEmpresa}"/>
+                                        <h:outputText value="Numero da RCA:" styleClass="negrito"/>
+                                        <h:outputText value=" #{rcaBean.rcaView.numero}"/>
+                                        <h:outputText value="Valor pago: " styleClass="negrito"/>
+                                        <h:outputText value=" #{rcaBean.rcaView.valor}"/>        
+                                        <h:outputText value="Data do pagamento: " styleClass="negrito"/>
+                                        <h:outputText value=" #{rcaBean.rcaView.dataPagamento}"/>
+                                        <h:outputText value="Objeto: " styleClass="negrito"/>
+                                        <h:outputText value=" #{rcaBean.rcaView.objeto}"/>
+                                    </h:panelGrid>
+                                    <br/>
+                                    <p:commandButton value="Atualizar"
+                                                     action="/atualizar/atualizarRCA.xhtml"
+                                                     ajax="false"
+                                                     style="text-align: center;">
+                                        <f:setPropertyActionListener value="#{rcaBean.rcaView}"
+                                                                     target="#{atualizacaoBean.rca}"/>
+                                    </p:commandButton>
+                                    <br/>
+                                </p:dialog>
+
+                            </p:commandLink>
+                        </p:column>     
+
+                        <p:column headerText="Excluir" style="text-align: center; width: 60px">
+                            <p:commandLink
+                                action="#{rcaBean.exibirDialogExcluir()}">
+                                <h:graphicImage library="imagens" name="lixeira.png" style="semBorda"/>
+                                <f:setPropertyActionListener target="#{rcaBean.rca}" value="#{rca}"/>
+                                <f:ajax execute="@this" render=":tabelaProcesso"/>
+                            </p:commandLink>  
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </div>
+
+            <p:confirmDialog id="confirmDialog" 
+                             message="Deseja esta RCA?"  
+                             header="Excluir" 
+                             severity="alert" 
+                             widgetVar="confirmacao">
+                <h:form>
+                    <p:commandButton id="confirm" 
+                                     value="Sim" 
+                                     action="#{rcaBean.excluir()}"
+                                     oncomplete="confirmacao.hide()"  
+                                     ajax="false">
+                    </p:commandButton>  
+                    <p:commandButton id="decline" value="Não" onclick="confirmacao.hide()" type="button" />   
+                </h:form>
+            </p:confirmDialog>
+
+
+
+        </ui:define>
+
+    </ui:composition>
+</html>

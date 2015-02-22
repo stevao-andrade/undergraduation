@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="corpo">
+            <div id="principalEsquerda">
+                <br/>
+                <h:form prependId="false" id="selecao_principal" style=" width: 300px;" acceptcharset="iso-8859-1,utf-8">
+                    <p:panel header="Instruções" >
+                        <br/>
+                        <h:outputText value="Bem-vindo ao Controle de Processos Internos!"/>
+                        <br/><br/><br/>
+                        <h:outputText value="Clique em uma das imagem ao lado para para proceder ao ambiente desejado."/>
+                        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    </p:panel>
+                </h:form>
+            </div>
+
+
+            <div id="principalDireita">
+                <h:form prependId="false" id="selecao_principal1" acceptcharset="iso-8859-1,utf-8">
+                    <p:panel id="panel1" header="Solicitações de Processos">
+                        <p:commandLink action="/restrito/processos" ajax="false">
+                            <br/>
+                            <h:graphicImage library="imagens" name="registro.png"  styleClass="semBorda"/>
+                            <br/>
+                            <br/>
+                        </p:commandLink>
+                    </p:panel>
+                    <p:draggable for="panel1" revert="true" />  
+
+                    <br/><br/>
+
+                    <p:panel id="panel2" header="Certidão de Regularidade">
+                        <p:commandLink action="/restrito/certidoes" ajax="false">
+                            <br/>
+                            <h:graphicImage library="imagens" name="certidao.png"  styleClass="semBorda"/>
+                            <br/>
+                            <br/>
+                        </p:commandLink>
+                    </p:panel>
+                    <p:draggable for="panel2" revert="true" /> 
+
+                </h:form>    
+
+                <h:form prependId="false" id="selecao_principal2" acceptcharset="iso-8859-1,utf-8">
+
+                    <p:panel id="panel3" header="Fiscalização">
+                        <p:commandLink action="/restrito/fiscalizacao" ajax="false">
+                            <br/>
+                            <h:graphicImage library="imagens" name="fiscalizacao.png"  styleClass="semBorda"/>
+                            <br/>
+                            <br/>
+                        </p:commandLink>
+                    </p:panel>
+                    <p:draggable for="panel3" revert="true" /> 
+
+                    <br/><br/>
+
+                    <p:panel id="panel5" header="RCA">
+                        <p:commandLink action="/restrito/rca" ajax="false">
+                            <br/>
+                            <h:graphicImage library="imagens" name="empresa.png"  styleClass="semBorda"/>
+                            <br/>
+                            <br/>
+                        </p:commandLink>
+                    </p:panel>
+                    <p:draggable for="panel5" revert="true" />
+
+                </h:form>    
+
+                <h:form prependId="false" id="selecao_principal3" acceptcharset="iso-8859-1,utf-8">
+                    <p:panel id="panel4" header="Relatórios">
+                        <p:commandLink action="/restrito/relatorios" ajax="false">
+                            <br/>
+                            <h:graphicImage library="imagens" name="relatorios.png"  styleClass="semBorda"/>
+                            <br/>
+                            <br/>
+                        </p:commandLink>
+                    </p:panel>
+                    <p:draggable for="panel4" revert="true" />  
+
+                    <br/><br/>
+
+                    <p:panel id="panel6" header="Usuarios">
+                        <p:commandLink action="/restrito/usuarios" ajax="false">
+                            <br/>
+                            <h:graphicImage library="imagens" name="usuario.png"  styleClass="semBorda"/>
+                            <br/>
+                            <br/>
+                        </p:commandLink>
+                    </p:panel>
+                    <p:draggable for="panel6" revert="true" />  
+                </h:form>    
+            </div>
+
+
+
+            <br/><br/>
+        </ui:define>
+    </ui:composition>
+</html>

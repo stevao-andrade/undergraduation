@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="INSTITUIÇÃO DE FORMAÇÃO" />
+            </div>
+        </ui:define>
+
+        <ui:define name="corpo">
+            <br/>
+            <h:form id="instituicaoEnsinoForm" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="Instituição de Ensino" style="width: 900px;">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Instituição de Ensino: "/> 
+                        <p:selectOneMenu 
+                            required="true"
+                            requiredMessage="Campo 'Instiuição de Ensino' Obrigatório"
+                            value="#{instituicaoEnsinoBean.instituicaoEnsino.nome_instituicao}"
+                            style="width: 500px;">
+                            <f:selectItem itemLabel="Selecione a instituição de formação" itemValue=""/>
+                            <f:selectItems value="#{instituicaoEnsinoBean.listaDeFaculdades}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Curso: "/> 
+                        <p:selectOneMenu id="cursoEnsino"
+                                         required="true"
+                                         requiredMessage="Campo 'Curso' Obrigatório"
+                                         value="#{instituicaoEnsinoBean.instituicaoEnsino.curso}"
+                                         style="width: 500px;">
+                            <f:selectItem itemLabel="Selecione o curso" itemValue=""/>
+                            <f:selectItems value="#{instituicaoEnsinoBean.listaDeCursos}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Início: "/> 
+                        <p:calendar id="dataInicioInstituicaoEnsino"
+                                    navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    required="true"
+                                    requiredMessage="Campo 'Início' Obrigatório"
+                                    value="#{instituicaoEnsinoBean.instituicaoEnsino.data_inicio}"/>
+
+                        <h:outputText value="Fim: "/> 
+                        <p:calendar id="dataFimInstituicaoEnsino"
+                                    navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    required="true"
+                                    requiredMessage="Campo 'Fim' Obrigatório"
+                                    value="#{instituicaoEnsinoBean.instituicaoEnsino.data_final}"/>
+                    </h:panelGrid>
+                </p:fieldset>    
+                <br/>
+                <p:commandButton value="Incluir Instituição de Formação" action="#{instituicaoEnsinoBean.salvar()}" ajax="false"/>
+            </h:form>
+
+            <br/><br/>
+
+            <p:messages/>
+
+            <p:spacer height="2.5%"/>
+
+            <h:form id="listagem_ensino" acceptcharset="iso-8859-1,utf-8">
+                <p:dataTable var="instituicaoLista" value="#{instituicaoEnsinoBean.lista}"
+                             paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             selectionMode="single"
+                             rows="10"
+                             style="width: 1100px; margin-left: 130px;"
+                             rowKey="#{instituicaoLista.codigo_instituicao}">
+                    <f:facet name="header">
+                        <h:outputText value="Dados"  />
+                    </f:facet>
+
+                    <p:column headerText="Instituição de Ensino" style="width: 400px;">
+                        <h:outputText value="#{instituicaoLista.nome_instituicao}"/>
+                    </p:column>
+
+                    <p:column headerText="Curso" style="width: 300px;">
+                        <h:outputText value="#{instituicaoLista.curso}"/>
+                    </p:column>
+
+                    <p:column headerText="Início" style="text-align: center; width: 100px;">
+                        <h:outputText value="#{instituicaoLista.data_inicio}">
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Fim" style="text-align: center; width: 100px;">
+                        <h:outputText value="#{instituicaoLista.data_final}">
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Excluir" style="text-align: center; width: 60px">
+                        <p:commandLink action="#{instituicaoEnsinoBean.excluir()}" 
+                                       ajax="false">
+                            <h:graphicImage library="imagens" name="fechar.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener value="#{instituicaoLista}" target="#{instituicaoEnsinoBean.instituicaoEnsino}" />
+                            <f:ajax execute="@this" render=":listagem_ensino"/>
+                        </p:commandLink>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{instituicaoEnsinoBean.lista.size()} Resultados"  />
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

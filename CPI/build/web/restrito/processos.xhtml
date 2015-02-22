@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:xc="http://java.sun.com/jsf/composite/xpert/components"
+      xmlns:x="http://xpert.com/faces">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Solicitações de Processos" />
+            </div>
+        </ui:define>
+
+        <ui:define name="corpo" id="define">
+            <div>
+                <p:fieldset legend="Registro de processos" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                    <h:form acceptcharset="UTF-8" id="formCertidao">
+                        <h:panelGrid columns="6" cellspacing="10">       
+
+                            <h:outputText value="Tipo de solicitação: "/>
+                            <h:selectOneMenu style="width: 260px;"
+                                             value="#{processoBean.processo.tipo}"
+                                             required="true"
+                                             id="selectServico"
+                                             requiredMessage="Tipo de solicitação obrigatória.">
+                                <p:ajax update="outCapitalSocial inputCaptalSocial outIES inputIES "/>
+                                <f:selectItem  itemLabel="-- Selecione um serviço --"
+                                               itemValue=""/>
+                                <f:selectItems value="#{processoBean.listaServicos}"
+                                               var="s"
+                                               itemLabel="#{s.servico}"
+                                               itemValue="#{s.servico}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText id="outCapitalSocial"
+                                          value="Capital Social: "/>
+                            <xc:inputNumber id="inputCaptalSocial"
+                                            value="#{processoBean.processo.capitalSocial}"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputText value="Plenária: "/>
+                            <h:selectOneMenu style="width: 260px;"
+                                             value="#{processoBean.processo.plenaria}"
+                                             required="true"
+                                             requiredMessage="Campo Plenária obrigatório.">
+                                <f:selectItem  itemLabel="-- Selecione uma Plenária --"
+                                               itemValue="#{0}"/>
+                                <f:selectItems value="#{processoBean.listaPlenarias}"
+                                               var="p"
+                                               itemLabel="#{p.plenaria}"
+                                               itemValue="#{p.plenaria}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Ano de referência: "/>
+                            <h:selectOneMenu style="width: 100px;"
+                                             value="#{processoBean.processo.anoReferencia}"
+                                             required="true"
+                                             requiredMessage="Ano de referência obrigatório.">
+                                <f:selectItem itemLabel="-- Ano --"
+                                              itemValue="#{0}"/>
+                                <f:selectItems value="#{processoBean.listaAno}"
+                                               var="ano"
+                                               itemLabel="#{ano.ano}"
+                                               itemValue="#{ano.ano}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Lote:"
+                                          style="margin-left: -160px"/>
+                            <p:inputText value="#{processoBean.processo.lote}"
+                                         style="width:  73px; margin-left: -165px"/>
+
+
+                            <h:outputText value="Requerente: "/>
+                            <p:inputText  value="#{processoBean.processo.requerente}"
+                                          required="true"
+                                          requiredMessage="Requerente obrigatório."/>
+
+                            <h:outputText value="Nº Registro: "/>
+                            <p:inputText    value="#{processoBean.processo.registro}"
+                                            required="true"
+                                            requiredMessage="Número de registro obrigatório."
+                                            style="width: 90px;"/>
+
+                            <h:outputText value="Documento: "
+                                          style="margin-left: -160px"/>
+                            <h:selectOneMenu value="#{processoBean.processo.documento}"
+                                             style="width:  85px; margin-left: -165px">
+                                <f:selectItem itemLabel="---"
+                                              itemValue="---"/>
+                                <f:selectItem itemLabel="Certidão"
+                                              itemValue="Certidão"/>
+                                <f:selectItem itemLabel="Diploma"
+                                              itemValue="Diploma"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText id="outIES"
+                                          value="IES: "/>
+                            <p:inputText  id="inputIES"
+                                          value="#{processoBean.processo.ies}"/>
+
+                            <h:outputText value="Data da colação: "/>
+                            <p:calendar value="#{processoBean.processo.dataColacao}"
+                                        navigator="true"
+                                        pattern="dd/MM/yyyy"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputText value="E-mail: "/>
+                            <p:inputText  value="#{processoBean.processo.email}"/>
+                            <h:outputText value="Data de Registro: "/>
+                            <p:calendar  value="#{processoBean.processo.dataRegistro}"
+                                         style="width: 90px;"
+                                         pattern="dd/MM/yyyy"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputText value="Data da solicitação: "/>
+                            <p:calendar   value="#{processoBean.processo.dataSolicitacao}"
+                                          pattern="dd/MM/yyyy"/>
+
+                            <h:outputText value="Nº Processo: "/>
+                            <p:inputText  value="#{processoBean.processo.numeroProcesso}"
+                                          required="true"
+                                          requiredMessage="Valor obrigatório."
+                                          style="width: 90px;"/>
+                            <h:outputText value="Nº Folhas:" style="margin-left: -160px;"/>
+                            <p:inputText value="#{processoBean.processo.folhas}"
+                                         style="width:  85px; margin-left: -175px;"/>
+
+                            <h:outputText value="Valor: "/>
+                            <xc:inputNumber value="#{processoBean.processo.valor}"/>
+                            <h:outputText value="Data do pagamento: "/>
+                            <p:calendar   pattern="dd/MM/yyyy"
+                                          value="#{processoBean.processo.dataPagamento}"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+                            
+                        </h:panelGrid>
+                        <h:outputText value="Observações:"/>
+                        <h:inputTextarea    value="#{processoBean.processo.observacoes}"
+                                            style="height: 150px; width: 610px; margin-left: 25px"/>
+
+
+                        <br/><br/>
+                        <p:commandButton action="#{processoBean.salvarProcesso()}"
+                                         value="Incluir"
+                                         ajax="false"/>
+
+                    </h:form>
+                </p:fieldset>
+
+            </div>
+
+            <br/>
+            <p:messages/>
+            <br/>
+            <div>
+                <h:form id="tabelaProcesso">
+                    <p:dataTable value="#{processoBean.lista}"
+                                 var="processoTabela" 
+                                 paginator="true"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 selectionMode="single"
+                                 rows="10"
+                                 rowKey="#{processoTabela.numeroProcesso}"
+                                 style="width: 1200px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                        <f:facet name="header">
+                            <h:outputText value="Processos"/>
+                        </f:facet>
+
+
+                        <p:column filterBy="#{processoTabela.requerente}"   
+                                  headerText="Requerente" 
+                                  filterMatchMode="contains" style="width: 400px;">
+                            <h:outputText value="#{processoTabela.requerente}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{processoTabela.numeroProcesso}" 
+                                  headerText="Nº Processo"
+                                  filterMatchMode="contains" 
+                                  style="width: 80px; text-align: center;">
+                            <h:outputText value="#{processoTabela.numeroProcesso}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Nº Registro" style="width: 80px; text-align: center;"
+                                  filterBy="#{processoTabela.registro}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{processoTabela.registro}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo de solicitação" style="width: 220px; text-align: center;"
+                                  filterBy="#{processoTabela.tipo}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{processoTabela.tipo}"/>
+                        </p:column>
+
+                        <p:column headerText="Documento" style="width: 80px; text-align: center;">
+                            <h:outputText value="#{processoTabela.documento}"/>
+                        </p:column>
+
+                        <p:column headerText="Plenária" style="width: 80px; text-align: center;">
+                            <h:outputText value="#{processoTabela.plenaria}" />
+                        </p:column>
+
+                        <p:column headerText="Ano de Ref." style="width: 40px; text-align: center;">
+                            <h:outputText value="#{processoTabela.anoReferencia}" />
+                        </p:column>
+
+                        <p:column headerText="Detalhes" style="text-align: center; width: 60px">
+                            <p:commandLink
+                                action="#{processoBean.exibirDialogDetalhes()}"
+                                update="dialog">
+                                <h:graphicImage library="imagens" name="detalhes.png" style="semBorda"/>
+                                <f:setPropertyActionListener target="#{processoBean.processoView}" value="#{processoTabela}"/>
+                                <f:ajax execute="@this" render="dialog"/>
+
+                                <p:dialog id="dialog" 
+                                          header="Detalhes do Requerente: #{processoBean.processoView.requerente}" 
+                                          widgetVar="detalhes"
+                                          style="text-align: left; width: 500px" >
+                                    <h:panelGrid columns="2">
+                                        <h:outputText value="Nome: " styleClass="negrito"/> 
+                                        <h:outputText value="#{processoBean.processoView.requerente}"/>
+                                        <h:outputText value="Email:" styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.email}"/>
+                                        <h:outputText value="Numero de Registro: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.registro}"/>        
+                                        <h:outputText value="Data da Colação de Grau: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.dataColacao}"/>        
+                                        <h:outputText value="Tipo de solicitação: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.tipo}"/>
+                                        <h:outputText value="Data da solicitação: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.dataSolicitacao}"/>
+                                        <h:outputText value="Plenaria: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.plenaria}"/>
+                                        <h:outputText value="Ano de Referencia : " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.anoReferencia}"/>
+                                        <h:outputText value="Valor pago: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.valor}"/>                                
+                                        <h:outputText value="Data do pagamento: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.dataPagamento}"/>
+                                        <h:outputText value="Tipo de documento: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.documento}"/>
+                                        <h:outputText value="Numero do Processo: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.numeroProcesso}"/>
+                                        <h:outputText value="Data do registro: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.dataRegistro}"/>
+                                        <h:outputText value="IES: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.ies}"/>
+                                        <h:outputText value="Data da colação de grau: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.dataColacao}"/>
+                                        <h:outputText value="Lote: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.lote}"/>
+                                        <h:outputText value="Observações: " styleClass="negrito"/>
+                                        <h:outputText value=" #{processoBean.processoView.observacoes}"/>
+                                    </h:panelGrid>
+                                    
+                                    <br/>
+                                    <p:commandButton value="Atualizar"
+                                                     action="/atualizar/atualizar_processo.xhtml"
+                                                     ajax="false"
+                                                     style="text-align: center;">
+                                        <f:setPropertyActionListener value="#{processoBean.processoView}"
+                                                                     target="#{atualizacaoBean.processo}"/>
+                                    </p:commandButton>
+                                    <br/>
+                                    
+                                </p:dialog>
+
+                            </p:commandLink>
+                        </p:column>
+
+                        <p:column headerText="Excluir" style="text-align: center; width: 60px">
+                            <p:commandLink
+                                action="#{processoBean.exibirDialogExcluir()}">
+                                <h:graphicImage library="imagens" name="lixeira.png" style="semBorda"/>
+                                <f:setPropertyActionListener target="#{processoBean.processo}" value="#{processoTabela}"/>
+                                <f:ajax execute="@this" render=":tabelaProcesso"/>
+                            </p:commandLink>  
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </div>
+
+            <p:confirmDialog id="confirmDialog" 
+                             message="Deseja excluir processo?"  
+                             header="Excluir" 
+                             severity="alert" 
+                             widgetVar="confirmacao">
+                <h:form>
+                    <p:commandButton id="confirm" 
+                                     value="Sim" 
+                                     action="#{processoBean.excluir()}"
+                                     oncomplete="confirmacao.hide()"  
+                                     ajax="false">
+                    </p:commandButton>  
+                    <p:commandButton id="decline" value="Não" onclick="confirmacao.hide()" type="button" />   
+                </h:form>
+            </p:confirmDialog>
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+

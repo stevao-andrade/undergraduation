@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/internaAdm2.xhtml">
+
+            <ui:define name="navegacao">
+                <div id="barra_menu_navegacao">
+                <a  href="administracao.xhtml">Painel Administrativo  </a>
+                <h:outputText value="> " />
+                <h:outputText value="DADOS DE ADMINISTRADOR" />
+            </div>
+            </ui:define>
+            <ui:define name="corpo">
+                <h:panelGroup id="atualizaUsuario">
+                    <h:form id="formAdmAtualizar" acceptcharset="iso-8859-1,utf-8">
+                        <br/>
+                        <p:fieldset  legend="Atualizar Dados">
+                            <h:panelGrid columns="2" cellpadding="5">
+
+                                <h:outputText value="Nome: " />
+                                <p:inputText  value="#{administradorBean.admin.login}"
+                                              id="nome_atualizar"
+                                              required="true"
+                                              requiredMessage="Campo 'Login' Obrigatório"/>
+
+                                <h:outputText value="Nova Senha: " />
+                                <p:password   value="#{administradorBean.admin.senha}" 
+                                              minLength="8"
+                                              id="senha_atualizar"
+                                              required="true"
+                                              requiredMessage="Campo 'Senha' Obrigatório"/>
+
+                                <h:outputText value="Confirmar Senha"/>
+                                <p:password value="#{administradorBean.confirmaSenha}"
+                                            id="confirmaSenha"
+                                            minLength="8"
+                                            feedback="false"
+                                            required="true"
+                                            requiredMessage="Campo 'Confirmar Senha' Obrigatório"/>
+                                <p:spacer height="1%"/>
+                            </h:panelGrid>
+
+                                
+                        </p:fieldset>
+                        <p:spacer height="5%"/>
+                        <p:messages/> 
+                        <p:commandButton value="Atualizar"
+                                         id="btn_enviar_atualizar"
+                                         action="#{administradorBean.atualizar()}"
+                                         ajax="false"/> 
+                    </h:form>
+                </h:panelGroup>
+                <br/>
+            </ui:define>
+    </ui:composition>
+</html>
+

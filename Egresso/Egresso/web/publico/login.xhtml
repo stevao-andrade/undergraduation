@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/interna_login.xhtml">
+        <ui:define name="corpo">
+            <div id="tela_login">
+                <h:panelGrid id="loginUsuario"  columns="2">
+                    <h:form acceptcharset="iso-8859-1,utf-8"> 
+                        <p:fieldset id="fieldSetLogin" legend="Acesso ao sistema">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Email: "/>
+                                <p:inputText value="#{usuarioBean.login}"/>
+
+                                <h:outputText value="Senha: "/>
+                                <p:password value="#{usuarioBean.password}" feedback="false"/>
+
+                                <p:commandButton action="#{usuarioBean.logar()}" value="Entrar" ajax="false"/> 
+                                
+                            </h:panelGrid>
+                        </p:fieldset>  
+                    </h:form>
+                    <p:messages/>
+                </h:panelGrid>
+
+                <h:panelGrid id="registrar"  columns="2">
+                    <h:form> 
+                        <p:fieldset>
+                            <h:panelGrid>
+                                <p:commandButton value="CRIAR CONTA" action="#{usuarioBean.novo()}" ajax="false"/>
+                            </h:panelGrid>
+                        </p:fieldset>  
+                    </h:form>
+                </h:panelGrid>    
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

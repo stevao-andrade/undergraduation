@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/internaPrincipal.xhtml">
+
+        <ui:define name="corpo">
+            <br/>
+            <h:form prependId="false" id="selecao_principal" style=" width: 300px;" acceptcharset="iso-8859-1,utf-8">
+                <p:panel header="Instruções" >
+                    <br/>
+                    <h:outputText value="Bem-vindo!!"/>
+                    <br/><br/><br/>
+                    <h:outputText value="Clique na urna para proceder ao ambiente de votação."/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                </p:panel>
+            </h:form>
+
+            <h:form prependId="false" id="selecao_principal3" acceptcharset="iso-8859-1,utf-8">
+                <p:panel id="panel5" header="Votar" style=" margin-top: 50px;">
+                    <p:commandLink action="/restrito/questionarios" ajax="false">
+                        <br/>
+                        <br/>
+                        <h:graphicImage library="imagens" name="detalhes.png"  styleClass="tabelaSemBorda"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </p:commandLink>
+                </p:panel>
+                <p:draggable for="panel5" revert="true" />  
+            </h:form>    
+
+            
+            <div id="rodape" style="height: 450px;"/>
+            
+        </ui:define>
+    </ui:composition>
+</html>

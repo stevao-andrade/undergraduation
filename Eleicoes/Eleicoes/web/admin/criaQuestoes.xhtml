@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/internaAdm2.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <h:outputText value="Pagina Principal  " />
+                <h:outputText value="> " />
+                <h:outputText value="Criar Questionários " />
+                <h:outputText value="> " />
+                <h:outputText value="Criar Questões" />
+            </div>
+
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form acceptcharset="iso-8859-1,utf-8">
+                <h:panelGrid cellpadding="5" style="width: 900px;"> 
+                    <br/>
+                    <p:fieldset legend="Adcionar Questões">
+                        <br/><br/><br/>
+                        <h:outputText value="Enunciado: "/>
+                        <p:inputText value="#{questaoBean.questao.enunciadoQuestao}" 
+                                     style="width: 500px;"
+                                     required="true"
+                                     requiredMessage="Campo 'Enunciado' Obrigatório"/>  
+                        <br/><br/><br/><br/>
+                    </p:fieldset>
+                </h:panelGrid>
+                <br/>
+                <p:commandButton value="Adcionar" 
+                                 action="#{questaoBean.salvarQuestao()}"
+                                 ajax="false"/>
+             </h:form>
+            <h:form id="formBtnFinalizar" acceptcharset="iso-8859-1,utf-8">
+                <p:commandButton value="Finalizar"
+                                 action="criaAlternativas"
+                                 ajax="false"/>
+            </h:form>
+                
+            
+            <br/><br/>
+            <p:messages/>
+            <br/><br/>
+            
+            <h:form acceptcharset="iso-8859-1,utf-8">
+                <p:dataTable var="questoes"  
+                             value="#{questaoBean.lista}" 
+                             id="tabelaQuestoes" 
+                             style="width: 950px; margin-left: 100px;"
+                             rowIndexVar="linha">
+
+                    <p:column headerText="Questão" style="width: 40px; text-align: center;" >
+                        <h:outputText value="#{linha+1}" />
+                    </p:column>
+
+                    <p:column headerText="Enunciado" style="width: 150px;">
+                        <h:outputText value="#{questoes.enunciadoQuestao}" />
+                    </p:column>
+
+                    <p:column headerText="Questionario" style="width: 150px; ">
+                        <h:outputText value="#{questoes.questionario.nomeQuestionario}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 50px"
+                              headerText="Excluir">
+                        <p:commandLink action="#{questaoBean.excluirQuestao()}" 
+                                       ajax="false">
+                            <h:graphicImage library="imagens" name="fechar.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener value="#{questoes}" target="#{questaoBean.questao}" />
+                            <f:ajax execute="@this" render=":tabelaQuestoes"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+
+
+        </ui:define>
+    </ui:composition>
+</html>

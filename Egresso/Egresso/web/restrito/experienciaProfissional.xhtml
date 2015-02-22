@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="EXPERIÊNCIA PROFISSIONAL" />
+            </div>
+        </ui:define>
+
+        <ui:define name="corpo">
+            <h:form id="experiencia" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="Experiencia Profissional" style="width: 900px;">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Organização/Empresa: "/> 
+                        <p:inputText  id="empresaOrganizacao"
+                                      required="true"
+                                      requiredMessage="Campo 'Organização/Empresa' Obrigatório"
+                                      value="#{experienciaProfissionalBean.experienciaProfissional.empresa}"/>
+
+                        <h:outputText value="Cargo: "/> 
+                        <p:inputText id="cargoExperiencia"
+                                     required="true"
+                                     requiredMessage="Campo 'Cargo' Obrigatório"
+                                     value="#{experienciaProfissionalBean.experienciaProfissional.cargo}"/> 
+
+                        <h:outputText value="Cargo exercido na área de formação? "/>
+                        <p:selectOneMenu effect="fade" 
+                                         id="areaFormacao"
+                                         required="true"
+                                         requiredMessage="Campo 'Área de Formação' Obrigatório"
+                                         value="#{experienciaProfissionalBean.experienciaProfissional.areaDeFormacao}">
+                            <f:selectItem itemValue="" itemLabel="Selecione uma opção"/>
+                            <f:selectItem itemValue="Sim" itemLabel="Sim"/>
+                            <f:selectItem itemValue="Nao" itemLabel="Nao"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Início: "/> 
+                        <p:calendar id="dataInicioExperiencia"
+                                    navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    required="true"
+                                    requiredMessage="Campo 'Início' Obrigatório"
+                                    value="#{experienciaProfissionalBean.experienciaProfissional.dataInicio}"/>                            
+
+                        <h:outputText value="Fim: "/> 
+                        <p:calendar id="dataFimExperiencia"
+                                    navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    requiredMessage="Campo 'Fim' Obrigatório"
+                                    value="#{experienciaProfissionalBean.experienciaProfissional.dataFim}"/>
+                    </h:panelGrid>
+                </p:fieldset>   
+                <br/>
+                <p:commandButton value="Incluir Experiencia" action="#{experienciaProfissionalBean.salvar()}" ajax="false"/>
+            </h:form>
+
+            <br/>
+
+            <p:messages/>
+
+            <br/>
+
+            <h:form id="listagem_exp" acceptcharset="iso-8859-1,utf-8">
+                <p:dataTable var="experiencia" value="#{experienciaProfissionalBean.lista}"
+                             paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             selectionMode="single"
+                             rows="10"
+                             style="width: 1200px; margin-left: 50px;"
+                             rowKey="#{experiencia.areaDeFormacao}">
+                    <f:facet name="header">
+                        <h:outputText value="Experiencia Profissional"  />
+                    </f:facet>
+
+                    <p:column headerText="Empresa/Organização" style="width: 350px;">
+                        <h:outputText value="#{experiencia.empresa}"/>
+                    </p:column>
+
+                    <p:column headerText="Cargo" style="width: 250px;">
+                        <h:outputText value="#{experiencia.cargo}"/>
+                    </p:column>
+
+                    <p:column headerText="Início" style="width: 100px; text-align: center">
+                        <h:outputText value="#{experiencia.dataInicio}">
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Fim" style="width: 100px; text-align: center">
+                        <h:outputText value="#{experiencia.dataFim}">
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Area de Formação" style="text-align: center; width: 150px" >
+                        <h:outputText value="#{experiencia.areaDeFormacao}"/>
+                    </p:column>
+
+                    <p:column headerText="Excluir" style="text-align: center; width: 60px">
+                        <p:commandLink action="#{experienciaProfissionalBean.excluir()}" 
+                                       ajax="false">
+                            <h:graphicImage library="imagens" name="fechar.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener value="#{experiencia}" target="#{experienciaProfissionalBean.experienciaProfissional}" />
+                            <f:ajax execute="@this" render=":listagem_exp"/>
+                        </p:commandLink>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{experienciaProfissionalBean.lista.size()} Resultados"  />
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <br/>
+        </ui:define>
+    </ui:composition>
+
+</html>

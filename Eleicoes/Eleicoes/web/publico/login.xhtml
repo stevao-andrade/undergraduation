@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/interna_login.xhtml">
+        <ui:define name="corpo">
+            <div id="tela_login">
+                <h:panelGrid id="loginUsuario"  columns="2">
+                    <h:form acceptcharset="iso-8859-1,utf-8"> 
+                        <p:fieldset id="fieldSetLogin" legend="Acesso ao sistema">
+                            <h:panelGrid columns="2">
+                                
+                                <h:outputText value="Nome: "/>
+                                <p:inputText value="#{usuarioBean.login}"/>
+
+                                <h:outputText value="Matricula: "/>
+                                <p:password value="#{usuarioBean.password}" feedback="false"/>
+                                
+                            </h:panelGrid>
+                        </p:fieldset>  
+                        <br/>
+                        <p:commandButton action="#{usuarioBean.logar()}" value="Entrar" ajax="false"/> 
+                    </h:form>
+                    <p:messages/>
+                </h:panelGrid>
+
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

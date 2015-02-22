@@ -1,0 +1,5 @@
+Passos:
+
+- Adcionar libs do MySQL ao GlassFish "../glassfish/glassfish/lib"
+- Criar "pool de conexões" no console admin "EgressoPool"
+- Criar  Data Source "egressoDS"

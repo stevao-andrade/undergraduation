@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+            <ui:define name="navegacao">
+                <div id="barra_menu_navegacao">
+                <a  href="principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="MEUS DADOS" />
+            </div>
+            </ui:define>
+            <ui:define name="corpo">
+                <h:panelGroup id="atualizaUsuario">
+                    <h:form id="formUsuario" acceptcharset="iso-8859-1,utf-8" >
+                        <br/>
+                        <p:fieldset legend="Atualizar Dados" style="width: 900px;">
+                            <h:panelGrid columns="2" cellpadding="5">
+
+                                <h:outputText value="Nome: " />
+                                <p:inputText  value="#{usuarioBean.usuario.nome}"
+                                              id="nome_atualizar"
+                                              required="true"
+                                              requiredMessage="Campo 'Nome' Obrigatório"
+                                              disabled="true"/>
+
+                                <h:outputText value="E-mail: " />
+                                <p:inputText  value="#{usuarioBean.usuario.email}"
+                                              id="email_atualizar"
+                                              required="true"
+                                              requiredMessage="Campo 'Email' Obrigatório"
+                                              validatorMessage="E-mail inválido">
+                                    <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                                </p:inputText>
+
+                                <h:outputText value="Senha: " />
+                                <p:password   value="#{usuarioBean.usuario.senha}" 
+                                              minLength="8"
+                                              id="senha_atualizar"
+                                              required="true"
+                                              requiredMessage="Campo 'Senha' Obrigatório"/>
+
+                                <h:outputText value="Confirmar Senha"/>
+                                <p:password value="#{usuarioBean.confirmaSenha}"
+                                            id="confirmaSenha"
+                                            minLength="8"
+                                            feedback="false"
+                                            required="true"
+                                            requiredMessage="Campo 'Confirmar Senha' Obrigatório"/>
+
+                                <h:outputText value="Matricula:"/>
+                                <p:inputText  value="#{usuarioBean.usuario.matricula}"
+                                              id="matricula_atualizar"
+                                              required="true"
+                                              requiredMessage="Campo 'Matricula' obrigatório"
+                                              disabled="true"/>
+
+                                <h:outputText value="Sexo: "/>
+                                <p:selectOneMenu effect="fade" value="#{usuarioBean.usuario.sexo}"
+                                                 id="sexo_atualizar"
+                                                 required="true"
+                                                 requiredMessage="Campo Sexo Obrigatório"
+                                                 disabled="true">
+                                    <f:selectItem itemValue="" itemLabel=""/>
+                                    <f:selectItem itemValue="Feminino" itemLabel="Feminino"/>
+                                    <f:selectItem itemValue="Masculino" itemLabel="Masculino"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Data de Nascimento: "/>
+                                <p:calendar navigator="true" value="#{usuarioBean.usuario.nascimento}"
+                                            id="data_atualizar"
+                                            required="true"
+                                            pattern="dd/MM/yyyy"
+                                            requiredMessage="Campo 'Data de Nascimento' Obrigatório"
+                                            disabled="true"/>
+
+                                <h:outputText value="C.P.F: " />
+                                <p:inputMask  value="#{usuarioBean.usuario.cpf}"
+                                              id="cpf_atualizar"
+                                              mask="999.999.999-99"/>
+
+                                <h:outputText value="R.G: " />
+                                <p:inputText  value="#{usuarioBean.usuario.rg}"
+                                              id="rg_atualizar"
+                                              requiredMessage="Campo 'R.G' Obrigatório"/>
+
+                                <h:outputText value="Telefone fixo: " />
+                                <p:inputMask  value="#{usuarioBean.usuario.telefone}"
+                                              id="fone_atualizar"
+                                              mask="(99) 9999-9999"
+                                              requiredMessage="Campo 'Telefone' Obrigatório"/>
+
+                                <h:outputText value="Telefone móvel:" />
+                                <p:inputMask value="#{usuarioBean.usuario.celular}"
+                                             id="cel_atualizar"
+                                             mask="(99) 9999-9999"
+                                             requiredMessage="Campo 'Celular' Obrigatório"/>
+                            </h:panelGrid>
+
+                        </p:fieldset>
+                        <p:messages/> 
+                        <br/>
+                        <p:commandButton value="Atualizar"
+                                         id="btn_enviar_atualizar"
+                                         action="#{usuarioBean.atualizar()}"
+                                         ajax="false"/> 
+                    </h:form>
+                </h:panelGroup>
+                <br/>
+            </ui:define>
+    </ui:composition>
+</html>
+

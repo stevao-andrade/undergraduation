@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Atualizacão de dados de Fiscalização" />
+            </div>
+        </ui:define>
+
+        <ui:define name="corpo">
+            <div>
+                <p:fieldset legend="Atualizar dados de Fiscalização" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                    <h:form acceptcharset="UTF-8" id="formCertidao">
+                        <h:panelGrid columns="4" cellspacing="10">       
+
+                            <h:outputText value="Tipo de Pessoa:"/>
+                            <p:selectOneRadio required="true"
+                                              requiredMessage="Tipo de pessoa obrigatório."
+                                              id="Pessoa"
+                                              value="#{atualizacaoBean.fiscalizacao.tipoFiscalizado}">
+                                <f:selectItem itemLabel="Pessoa Física"
+                                              itemValue="Pessoa Física"/>
+                                <f:selectItem itemLabel="Pessoa Jurídica"
+                                              itemValue="Pessoa Jurídica"/>
+                            </p:selectOneRadio>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputLabel value="Nome:" />  
+                            <p:inputText value="#{atualizacaoBean.fiscalizacao.fiscalizado}"
+                                         id="Nome"
+                                         required="true"
+                                         requiredMessage="Nome obrigatório."
+                                         style="width: 240px;"/>
+
+                            <h:outputLabel value="Nº Processo: " />  
+                            <p:inputText required="true"
+                                         requiredMessage="Numero do processo obrigatório."
+                                         id="Numero_processo"
+                                         value="#{atualizacaoBean.fiscalizacao.processo}"
+                                         style="width: 250px;"/>
+
+                            <h:outputLabel value="Ano de referencia: "/>
+                            <h:selectOneMenu value="#{atualizacaoBean.fiscalizacao.anoReferencia}"
+                                             style="width: 250px;">
+                                 <f:selectItem itemLabel="2009"
+                                              itemValue="2009"/>
+                                 <f:selectItem itemLabel="2010"
+                                              itemValue="2010"/>
+                                <f:selectItem itemLabel="2011"
+                                              itemValue="2011"/>
+                                <f:selectItem itemLabel="2012"
+                                              itemValue="2012"/>
+                            </h:selectOneMenu>
+
+                            <h:outputLabel   value="Tipo de processo:"/>  
+                            <h:selectOneMenu style="width: 260px;"
+                                             required="true"
+                                             requiredMessage="Tipo de processo obrigatório."
+                                             id="Processo"
+                                             value="#{atualizacaoBean.fiscalizacao.tipoProcesso}">
+                                <f:selectItem itemLabel="-- Selecione o tipo de processo --"
+                                              itemValue="0"/>
+                                <f:selectItems value="#{fiscalizacaoBean.listaTipoFiscalizacao}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:outputLabel    value="Status:"/>  
+                            <h:selectOneMenu value="#{atualizacaoBean.fiscalizacao.statusProcesso}" 
+                                             required="true"
+                                             id="Status"
+                                             requiredMessage="Status do processo obrigatório."
+                                             style="width: 250px">
+                                <f:selectItem itemLabel="--Selecione o Status--"/>
+                                <f:selectItems value="#{fiscalizacaoBean.listaStatus}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:outputLabel for="from" value="Data da fiscalização:" />  
+                            <p:calendar value="#{atualizacaoBean.fiscalizacao.dataFiscalizacao}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                <f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"/>
+                            </p:calendar>
+                        </h:panelGrid>
+
+                        <h:outputText value="Observações:"/>
+                        <p:inputTextarea value="#{atualizacaoBean.fiscalizacao.observacao}"
+                                         style="width: 633px; 
+                                         height: 180px; 
+                                         margin-left: 40px;"/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        
+                        <p:commandButton value="Atualizar Informações"
+                                         action="#{atualizacaoBean.atualizarFiscalizacao()}"
+                                         ajax="false"/>
+                    </h:form>
+                </p:fieldset>
+            </div>
+
+            <br/>
+            <p:messages/>
+            <br/>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

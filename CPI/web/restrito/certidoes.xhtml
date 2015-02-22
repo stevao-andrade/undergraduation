@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:xc="http://java.sun.com/jsf/composite/xpert/components"
+      xmlns:x="http://xpert.com/faces">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Certidão de Regularidade" />
+            </div>
+
+        </ui:define>
+
+
+        <ui:define name="corpo">
+            <p:fieldset legend="Certidão de Regularidade" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                <h:form acceptcharset="UTF-8" id="formCertidao">
+                    <h:panelGrid columns="4" cellspacing="10">       
+
+                        <h:outputText value="Número da Certidão:"/>
+                        <p:inputText required="true"
+                                     requiredMessage="Numero da certidão obrigatório."
+                                     value="#{certidaoBean.certidao.numero}"/>
+
+                        <h:outputText value="Ano de referência: "/>
+                        <h:selectOneMenu style="width: 100px;"
+                                         value="#{certidaoBean.certidao.ano}"
+                                         required="true"
+                                         requiredMessage="Ano de referência obrigatório.">
+                            <f:selectItem itemLabel="-- Ano --"
+                                          itemValue="#{0}"/>
+                            <f:selectItems value="#{certidaoBean.listaAno}"
+                                           var="ano"
+                                           itemLabel="#{ano.ano}"
+                                           itemValue="#{ano.ano}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputText value="Requerente: "/>
+                        <p:inputText  required="true"
+                                      requiredMessage="Requerente obrigatório."
+                                      value="#{certidaoBean.certidao.requerente}"/>
+
+                        <h:outputText value="Nº Registro: "/>
+                        <p:inputText    value="#{certidaoBean.certidao.registro}"
+                                        style="width: 90px;"/>
+
+                        <h:outputText value="Tipo de inscrição:"/>
+                        <h:selectOneMenu    required="true"
+                                            id="selectTipoCertidao"
+                                            requiredMessage="Tipo de inscrição obrigatório."
+                                            style="width: 260px;"
+                                            value="#{certidaoBean.certidao.tipoInscricao}">
+                            <f:selectItem itemLabel="Pessoa Física"
+                                          itemValue="Pessoa Física"/>
+                            <f:selectItem itemLabel="Pessoa Jurídica"
+                                          itemValue="Pessoa Jurídica"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Data da solicitação: "/>
+                        <p:calendar   pattern="dd/MM/yyyy"
+                                      value="#{certidaoBean.certidao.dataSolicitacao}"/>
+
+                        <h:outputText value="Valor: "/>
+                        <xc:inputNumber  value="#{certidaoBean.certidao.valor}"/>
+                        <h:outputText value="Data do pagamento: "/>
+                        <p:calendar   pattern="dd/MM/yyyy"
+                                      value="#{certidaoBean.certidao.dataPagamento}"/>
+
+                        <h:outputText value="Prazo de validade: "/>
+                        <p:calendar   pattern="dd/MM/yyyy"
+                                      value="#{certidaoBean.certidao.prazoValidade}"/>
+
+                        <h:outputText value="Numero do selo: "/>
+                        <p:inputText value="#{certidaoBean.certidao.selo}"
+                                     style="width: 90px;"/>
+
+                        <br/><br/>
+                        <p:commandButton value="Incluir"
+                                         ajax="false"
+                                         action="#{certidaoBean.salvarCertidao()}"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:fieldset>
+
+            <br/>
+            <p:messages/>
+            <br/>
+            
+            
+            <h:form id="tabelaProcesso">
+                <p:dataTable value="#{certidaoBean.lista}"
+                             var="certidao" 
+                             paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rows="10"
+                             rowKey="#{certidao.requerente}"
+                             selectionMode="single"
+                             style="width: 1250px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                    <f:facet name="header">
+                        <h:outputText value="Certidões de Regularidade"/>
+                    </f:facet>
+
+                    <p:column headerText="Numero da Certidão" 
+                              style="width: 70px; text-align: center"
+                              filterBy="#{certidao.numero}"   
+                              filterMatchMode="contains">
+                        <h:outputText value="#{certidao.numero}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{certidao.requerente}"   
+                              filterMatchMode="contains" 
+                              headerText="Requerente" 
+                              style="width: 250px;">
+                        <h:outputText value="#{certidao.requerente}"/>
+                    </p:column>
+
+                    <p:column headerText="Nº Registro" 
+                              style="width: 70px; text-align: center;"
+                              filterBy="#{certidao.registro}"   
+                              filterMatchMode="contains">
+                        <h:outputText value="#{certidao.registro}" />
+                    </p:column>
+
+                    <p:column headerText="Tipo de solicitação" style="width: 100px; text-align: center;">
+                        <h:outputText value="#{certidao.tipoInscricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Data da solicitação" style="width: 120px; text-align: center;">
+                        <h:outputText value="#{certidao.dataSolicitacao}" />
+                    </p:column>
+
+                    <p:column headerText="Valor" style="width: 70px; text-align: center;">
+                        <h:outputText value="#{certidao.valor}" />
+                    </p:column>
+
+                    <p:column headerText="Data do pagamento" style="width: 100px; text-align: center;">
+                        <h:outputText value="#{certidao.dataPagamento}" />
+                    </p:column>
+
+                    <p:column headerText="Validade" style="width: 100px; text-align: center;">
+                        <h:outputText value="#{certidao.prazoValidade}"/>
+                    </p:column>
+
+                    <p:column headerText="Detalhes" style="text-align: center; width: 60px">
+                        <p:commandLink
+                            action="#{certidaoBean.exibirDialogDetalhes()}"
+                            update="dialog">
+                            <h:graphicImage library="imagens" name="detalhes.png" style="semBorda"/>
+                            <f:setPropertyActionListener target="#{certidaoBean.certidaoView}" value="#{certidao}"/>
+                            <f:ajax execute="@this" render="dialog"/>
+
+                            <p:dialog id="dialog" 
+                                      header="Detalhes da Solicitação:" 
+                                      widgetVar="detalhes"
+                                      style="text-align: left; width: 500px" >
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Requerente: " styleClass="negrito"/> 
+                                    <h:outputText value="#{certidaoBean.certidaoView.requerente}"/>
+                                    <h:outputText value="Numero de Registro: " styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.registro}"/>
+                                    <h:outputText value="Tipo de inscrição:" styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.tipoInscricao}"/>
+                                    <h:outputText value="Numero da certidão:" styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.numero}"/>
+                                    <h:outputText value="Ano de referencia:" styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.ano}"/>
+                                    <h:outputText value="Data da solicitação: " styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.dataSolicitacao}"/>        
+                                    <h:outputText value="Valor pago: " styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.valor}"/>        
+                                    <h:outputText value="Data do pagamento: " styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.dataPagamento}"/>
+                                    <h:outputText value="Prazo de Validade: " styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.prazoValidade}"/>
+                                    <h:outputText value="Numero do selo: " styleClass="negrito"/>
+                                    <h:outputText value=" #{certidaoBean.certidaoView.selo}"/>
+                                </h:panelGrid>
+                                <br/>
+                                <p:commandButton value="Atualizar"
+                                                 action="/atualizar/atualizar_certidao.xhtml"
+                                                 ajax="false"
+                                                 style="text-align: center;">
+                                    <f:setPropertyActionListener value="#{certidaoBean.certidaoView}"
+                                                                 target="#{atualizacaoBean.certidao}"/>
+                                </p:commandButton>
+                                <br/>
+                            </p:dialog>
+
+                        </p:commandLink>
+                    </p:column>     
+
+                    <p:column headerText="Excluir" style="text-align: center; width: 60px">
+                        <p:commandLink
+                            action="#{certidaoBean.exibirDialogExcluir()}">
+                            <h:graphicImage library="imagens" name="lixeira.png" style="semBorda"/>
+                            <f:setPropertyActionListener target="#{certidaoBean.certidao}" value="#{certidao}"/>
+                            <f:ajax execute="@this" render=":tabelaProcesso"/>
+                        </p:commandLink>  
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <p:confirmDialog id="confirmDialog" 
+                             message="Deseja esta certidão?"  
+                             header="Excluir" 
+                             severity="alert" 
+                             widgetVar="confirmacao">
+                <h:form>
+                    <p:commandButton id="confirm" 
+                                     value="Sim" 
+                                     action="#{certidaoBean.excluir()}"
+                                     oncomplete="confirmacao.hide()"  
+                                     ajax="false">
+                    </p:commandButton>  
+                    <p:commandButton id="decline" value="Não" onclick="confirmacao.hide()" type="button" />   
+                </h:form>
+            </p:confirmDialog>
+
+        </ui:define>
+
+    </ui:composition>
+</html>

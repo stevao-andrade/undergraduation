@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:xc="http://java.sun.com/jsf/composite/xpert/components"
+      xmlns:x="http://xpert.com/faces">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="/CPI/restrito/principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="Solicitações de Processos" />
+            </div>
+        </ui:define>
+
+        <ui:define name="corpo" id="define">
+            <div>
+                <p:fieldset legend="Registro de processos" style="width: 800px;  margin-left: 10%; margin-right: 10%; margin: 0 auto;">
+                    <h:form acceptcharset="UTF-8" id="formCertidao">
+                        <h:panelGrid columns="6" cellspacing="10">       
+
+                            <h:outputText value="Tipo de solicitação: "/>
+                            <h:selectOneMenu style="width: 260px;"
+                                             value="#{atualizacaoBean.processo.tipo}"
+                                             required="true"
+                                             id="selectServico"
+                                             requiredMessage="Tipo de solicitação obrigatória.">
+                                <p:ajax update="outCapitalSocial inputCaptalSocial outIES inputIES "/>
+                                <f:selectItem  itemLabel="-- Selecione um serviço --"
+                                               itemValue=""/>
+                                <f:selectItems value="#{processoBean.listaServicos}"
+                                               var="s"
+                                               itemLabel="#{s.servico}"
+                                               itemValue="#{s.servico}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText id="outCapitalSocial"
+                                          value="Capital Social: "/>
+                            <xc:inputNumber id="inputCaptalSocial"
+                                            value="#{atualizacaoBean.processo.capitalSocial}"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputText value="Plenária: "/>
+                            <h:selectOneMenu style="width: 260px;"
+                                             value="#{atualizacaoBean.processo.plenaria}"
+                                             required="true"
+                                             requiredMessage="Campo Plenária obrigatório.">
+                                <f:selectItem  itemLabel="-- Selecione uma Plenária --"
+                                               itemValue="#{0}"/>
+                                <f:selectItems value="#{processoBean.listaPlenarias}"
+                                               var="p"
+                                               itemLabel="#{p.plenaria}"
+                                               itemValue="#{p.plenaria}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Ano de referência: "/>
+                            <h:selectOneMenu style="width: 100px;"
+                                             value="#{atualizacaoBean.processo.anoReferencia}"
+                                             required="true"
+                                             requiredMessage="Ano de referência obrigatório.">
+                                <f:selectItem itemLabel="-- Ano --"
+                                              itemValue="#{0}"/>
+                                <f:selectItems value="#{processoBean.listaAno}"
+                                               var="ano"
+                                               itemLabel="#{ano.ano}"
+                                               itemValue="#{ano.ano}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Lote:"
+                                          style="margin-left: -160px"/>
+                            <p:inputText value="#{atualizacaoBean.processo.lote}"
+                                         style="width:  73px; margin-left: -165px"/>
+
+
+                            <h:outputText value="Requerente: "/>
+                            <p:inputText  value="#{atualizacaoBean.processo.requerente}"
+                                          required="true"
+                                          requiredMessage="Requerente obrigatório."/>
+
+                            <h:outputText value="Nº Registro: "/>
+                            <p:inputText    value="#{atualizacaoBean.processo.registro}"
+                                            required="true"
+                                            requiredMessage="Número de registro obrigatório."
+                                            style="width: 90px;"/>
+
+                            <h:outputText value="Documento: "
+                                          style="margin-left: -160px"/>
+                            <h:selectOneMenu value="#{atualizacaoBean.processo.documento}"
+                                             style="width:  85px; margin-left: -165px">
+                                <f:selectItem itemLabel="---"
+                                              itemValue="---"/>
+                                <f:selectItem itemLabel="Certidão"
+                                              itemValue="Certidão"/>
+                                <f:selectItem itemLabel="Diploma"
+                                              itemValue="Diploma"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText id="outIES"
+                                          value="IES: "/>
+                            <p:inputText  id="inputIES"
+                                          value="#{atualizacaoBean.processo.ies}"/>
+
+                            <h:outputText value="Data da colação: "/>
+                            <p:inputText value="#{atualizacaoBean.processo.dataColacao}"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputText value="E-mail: "/>
+                            <p:inputText  value="#{atualizacaoBean.processo.email}"/>
+                            <h:outputText value="Data de Registro: "/>
+                            <p:inputText  value="#{atualizacaoBean.processo.dataRegistro}"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                            <h:outputText value="Data da solicitação: "/>
+                            <p:inputText   value="#{atualizacaoBean.processo.dataSolicitacao}"/>
+
+                            <h:outputText value="Nº Processo: "/>
+                            <p:inputText  value="#{atualizacaoBean.processo.numeroProcesso}"
+                                          required="true"
+                                          requiredMessage="Valor obrigatório."
+                                          style="width: 90px;"/>
+                            <h:outputText value="Nº Folhas:" style="margin-left: -160px;"/>
+                            <p:inputText value="#{atualizacaoBean.processo.folhas}"
+                                         style="width:  85px; margin-left: -175px;"/>
+
+                            <h:outputText value="Valor: "/>
+                            <xc:inputNumber value="#{atualizacaoBean.processo.valor}"/>
+                            <h:outputText value="Data do pagamento: "/>
+                            <p:inputText  value="#{atualizacaoBean.processo.dataPagamento}"/>
+                            <h:inputHidden/>
+                            <h:inputHidden/>
+
+                        </h:panelGrid>
+                        <h:outputText value="Observações:"/>
+                        <h:inputTextarea    value="#{atualizacaoBean.processo.observacoes}"
+                                            style="height: 150px; width: 610px; margin-left: 25px"/>
+
+
+                        <br/><br/>
+                        <p:commandButton action="#{atualizacaoBean.atualizarProcesso()}"
+                                         value="Atualizar Informações"
+                                         ajax="false"/>
+
+                    </h:form>
+                </p:fieldset>
+
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

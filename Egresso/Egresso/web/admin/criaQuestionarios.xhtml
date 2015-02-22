@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/internaAdm2.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="administracao.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="CRIAR QUESTIONÁRIOS" />
+            </div>
+
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form id="FormQuestionario" style="margin-left: 80px;" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="Criar novo Questionário" style="width: 1000px;">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Nome do Questionário: " />
+                        <p:inputText value="#{questionarioBean.questionario.nomeQuestionario}"
+                                     required="true"
+                                     requiredMessage="Campo 'Nome do Questionário' Obrigatório"
+                                     style="width: 450px;"/>
+
+
+                        <h:outputText value="Disponível até:"/>
+                        <p:calendar navigator="true" value="#{questionarioBean.questionario.dataDisponibilidadeFinal}"
+                                    required="true"
+                                    pattern="dd/MM/yyyy"
+                                    requiredMessage="Campo 'Disponível' Obrigatório"/> 
+                    </h:panelGrid>
+                </p:fieldset>
+                <br/>
+                <p:commandButton value="Criar" action="#{questionarioBean.salvarQuestionario()}" ajax="false"/>
+            </h:form>
+
+                <br/> <p:messages/> <br/> 
+            
+            <h:form acceptcharset="iso-8859-1,utf-8">
+                <p:dataTable id="tabelaQuestionario" var="questionarios" value="#{questionarioBean.listaQuestionario}" style="width: 950px; margin-left: 110px;">
+                    <f:facet name="header">
+                        <h:outputText value="Lista de Questionários"/>
+                    </f:facet>
+                    <p:column headerText="Nome do Questionario" style="width: 350px;">
+                        <h:outputText value="#{questionarios.nomeQuestionario}" />
+                    </p:column>
+
+                    <p:column headerText="Data de Criação" style="width: 150px; text-align: center">
+                        <h:outputText value="#{questionarios.dataCriacao}" >
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Fim da avaliação" style="width: 150px; text-align: center">
+                        <h:outputText value="#{questionarios.dataDisponibilidadeFinal}" >
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 50px"
+                              headerText="Excluir">
+                        <p:commandLink action="#{questionarioBean.excluirQuestionario()}" 
+                                       ajax="false">
+                            <h:graphicImage library="imagens" name="fechar.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener value="#{questionarios}" target="#{questionarioBean.questionario}" />
+                            <f:ajax execute="@this" render=":tabelaQuestionario"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>    
+            <p:spacer height="3%"/> 
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,23 @@
+========================
+Guia do Usuario
+========================
+
+Notes:
+
+* Para o funcionamento correto do sistema a pasta Executavel deve conter tanto o arquivo executavel *.JAR como as bibliotecas necessarias para o seu funcionamento. 
+
+* As bibliotecas se encontram em uma pasta chamada "lib"
+
+* É expressamente negada a alteraão do Script do Banco de Dados. Qualquer alteração pode causar mal funcionamento do sistema.
+
+* Para tirar melhor proveito do sistema e suas funcionalidades recomenda-se ler o guia do usuario.
+
+* Maiores duvidas entrar em contato com o desenvolvedor.
+
+
+Stevão Alves de Andrade
+
+stevao.andrade@gmail.com
+
+
+Obrigado por utilizar.

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="CONTATO" />
+            </div>
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form id="form_contato" acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:fieldset legend="Formulário para contato" style="width: 700px;">
+                    <h:panelGrid id="form_contato_panel" columns="2" cellpadding="7">
+
+                        <h:outputText value="Nome: " />
+                        <p:inputText  id="nome_contato"
+                                      value="#{gmailBean.assunto}"
+                                      required="true"
+                                      requiredMessage="Campo 'Nome' Obrigatório"/>
+
+                        <h:outputText value="E-mail: " />
+                        <p:inputText  id="email_conato"
+                                      value="#{gmailBean.de}"
+                                      required="true"
+                                      requiredMessage="Campo 'Email' Obrigatório"
+                                      validatorMessage="E-mail inválido">
+                            <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                        </p:inputText>
+
+                        <p:inputTextarea value="#{gmailBean.conteudo}"
+                                         rows="10"
+                                         cols="30"/> 
+                        
+                    </h:panelGrid>
+                </p:fieldset>
+                <br/>
+                <p:commandButton value="Enviar"
+                                         id="btn_enviar_contato"
+                                         ajax="false"
+                                         action="#{gmailBean.enviarEmail()}"/>
+                <p:messages/>
+            </h:form>
+            <br/>
+        </ui:define>
+    </ui:composition>
+
+</html>

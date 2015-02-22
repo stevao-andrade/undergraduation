@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="navegacao">
+            <div id="barra_menu_navegacao">
+                <a  href="principal.xhtml">Pagina Principal  </a>
+                <h:outputText value="> " />
+                <h:outputText value="QUESTIONÁRIOS" />
+            </div>
+
+        </ui:define>
+        <ui:define name="corpo">
+            <br/><br/>
+            <h:form acceptcharset="iso-8859-1,utf-8">
+                <br/>
+                <p:dataTable id="tabelaQuestionarioDisponiveis" var="questionariosDisponiveis" 
+                             value="#{usuarioQuestionarioBean.questionariosDisponiveis}" 
+                             style="width: 950px; margin-left: 110px;">
+                    <f:facet name="header">
+                        <h:outputText value="Lista de Questionários disponíveis"/>
+                    </f:facet>
+
+                    <p:column headerText="Nome do Questionario" style="width: 350px;">
+                        <h:outputText value="#{questionariosDisponiveis.nomeQuestionario}" />
+                    </p:column>
+
+                    <p:column headerText="Data de Criação" style="width: 150px; text-align: center">
+                        <h:outputText value="#{questionariosDisponiveis.dataCriacao}" >
+                            <f:convertDateTime dateStyle="medium"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 70px"
+                              headerText="Responder">
+                        <p:commandLink ajax="false"
+                                       action="questionarioQuestoes">
+                            <h:graphicImage library="imagens" name="disponivel.gif" styleClass="tabelaSemBorda"/>
+                            <f:setPropertyActionListener target="#{usuarioQuestionarioBean.questionario}" value="#{questionariosDisponiveis}"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <br/><br/>
+            </h:form>    
+        </ui:define>
+    </ui:composition>
+</html>

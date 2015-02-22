@@ -1,0 +1,167 @@
+/* 
+    Document   : estilo
+    Created on : 28/07/2011, 11:06:39
+    Author     : stevao.alves
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+#container{
+    margin: 0 auto;
+}
+#corpo{
+    font-size: 20px;
+    margin:0 auto;
+}
+
+
+#logotipo{
+    background-image: url(../resources/imagens/topo_egresso.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 120px;
+}
+
+
+#barra_menu{
+    background-image: url(../resources/imagens/barra_menu.gif);
+    height: 22px;
+    background-repeat: repeat-x;
+    background-position: center;
+    font-size: 16px;
+}
+
+#rodape{
+    background-image: url(../resources/imagens/rodape.gif);
+    background-position: bottom;
+    height: 40px;
+    background-repeat: repeat-x;
+}
+
+#loginUsuario{
+    margin-left: 10% ; 
+    margin-right: 10% ;
+    margin: 0 auto;
+}
+
+.semBorda{  
+    border: 0px;   
+} 
+
+
+#formCertidao input,select{
+    width: 250px;
+}
+
+
+#logotipo_info{
+    position: absolute;
+    top: 70px;
+    text-align: left;
+    left: 65px;
+}
+
+
+#barra_menu_navegacao{
+    position: absolute;
+    display: inline;
+    left: 70px;
+    top: 130px;
+    font-weight: bold;
+    color: #000000;
+}
+
+
+#barra_menu .interna{
+    margin: 0 auto;
+    text-align: right;
+    font-weight: bold;
+}
+
+#panel1 {
+    width: 235px;
+    text-align:center;
+}
+
+#panel2 {
+    width: 235px;
+    text-align:center;
+}
+
+#panel3 {
+    width: 235px;
+    text-align:center;
+}
+
+#panel4 {
+    width: 235px;
+    text-align:center;
+}
+
+#panel5 {
+    width: 235px;
+    text-align:center;
+}
+
+#panel6 {
+    width: 235px;
+    text-align:center;
+}
+
+#selecao_principal{
+    margin-top: 5%;
+}
+
+#selecao_principal1{
+    margin-left: 400px;;
+    margin-top:  -300px;
+}
+
+#selecao_principal2{
+    margin-left: 700px;
+    margin-top: -445px;
+}
+
+#selecao_principal3{
+    margin-left: 1000px;
+    margin-top: -445px;    
+}
+
+.negrito{
+    font-weight: bold;
+}
+
+.grave, .grave .fc-event-skin{    
+background-color: red; 
+border-color: red;
+color: black;
+}
+
+.medio, .medio .fc-event-skin{    
+background-color: yellow; 
+border-color: yellow;
+color: black;
+}
+
+.ok, .ok .fc-event-skin{    
+background-color: green; 
+border-color: green;
+color: black;
+}
+
+.normal, .normal .fc-event-skin{    
+background-color: blue; 
+border-color: blue;
+color: white;
+}
+
+.arquivado, .arquivado .fc-event-skin{    
+background-color: darkgrey;
+border-color: darkgrey;
+color: black;
+}

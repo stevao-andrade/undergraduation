@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.datasource">egressoDS</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.jndi.url"></property>
+        <mapping class="br.com.egresso.usuario.Usuario"/>
+        <mapping class="br.com.egresso.administracao.Administrador"/>
+        <mapping class="br.com.egresso.formacaoProfissional.FormacaoProfissional"/>
+        <mapping class="br.com.egresso.experienciaProfissional.ExperienciaProfissional"/>
+        <mapping class="br.com.egresso.instituicaoEnsino.InstituicaoEnsino"/>
+        <mapping class="br.com.egresso.instituicaoEnsino.Faculdade"/>
+        <mapping class="br.com.egresso.instituicaoEnsino.Curso"/>
+        <mapping class="br.com.egresso.questionarios.Questionario"/>
+        <mapping class="br.com.egresso.questionarios.Questao"/>
+        <mapping class="br.com.egresso.questionarios.Alternativa"/>
+        <mapping class="br.com.egresso.questionarios.Resposta"/>
+        <mapping class="br.com.egresso.questionarioUsuario.QuestionarioUsuario"/>  
+    </session-factory>
+</hibernate-configuration>
